@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="m8" default="dist" basedir=".">
+<project name="Quick-Reply" default="dist" basedir=".">
     
     <property name="build" location="build" />
     <property name="src"   location="src" />
@@ -35,7 +35,7 @@
             <mapper type="glob" from="script.js" to="done.js" />
         </apply>
                     
-        <copy tofile="${build}/script.js" file="${temp}/done.js" />
+        <copy tofile="${build}/script_${CHROME}.js" file="${temp}/done.js" />
         
     </target>    
 
