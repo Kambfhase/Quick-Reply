@@ -11,12 +11,12 @@ var optionen = {
         qr_zitieren : true,
         qr_editieren: true,
         qr_customsmileys : ["http://p0t.kicks-ass.net/balla.gif",
-        "http://p0t.kicks-ass.net/hallocain.gif",
-        "http://p0t.kicks-ass.net/trommel.gif",
-        "http://p0t.kicks-ass.net/naughty.gif"],
+            "http://p0t.kicks-ass.net/hallocain.gif",
+            "http://p0t.kicks-ass.net/trommel.gif",
+            "http://p0t.kicks-ass.net/naughty.gif"],
         qr_custombuttons : [{
-        "url":"http://abload.de/img/uberkano.png",
-        "code":"[url=steam://connect/93.190.68.179:27015][img]http://www.abload.de/img/uber2fv6e.png[/img][/url]"
+            "url":"http://abload.de/img/uberkano.png",
+            "code":"[url=steam://connect/93.190.68.179:27015][img]http://www.abload.de/img/uber2fv6e.png[/img][/url]"
         }]
 },
 cl  = window.console ? function(){ window.console.log.apply(window.console, arguments); } : GM_log,
@@ -27,7 +27,10 @@ storage, $, token_newreply;
 
 #if GREASEMONKEY
 
-storage = { get: GM_getValue, set: GM_setValue };
+storage = { get: function( a,b){
+    var val = GM_getValue( a, b);
+    return typeof val !== typeof b ? JSON.parse( val) : val;
+}, set: GM_setValue };
 $= unsafeWindow.jQuery;
 token_newreply = unsafeWindow.token_newreply;
 
@@ -226,7 +229,7 @@ ajaxEditpage = function( data){
 clickSmiley = function(e){
     var $this = $(this);
     
-    window.addText( $this.attr('alt') == "src" ? ('[img]'+$this.attr('src')+'[/img]') : $this.attr('alt'), window.document.forms['newreply']);
+    window.addText( ($this.attr('alt') == "src" ? ('[img]'+$this.attr('src')+'[/img]') : $this.attr('alt')), window.document.forms['newreply']);
 },
 changeCustomsmiley = function(e){
     var urls = $(this).val().split('\n'),
@@ -236,7 +239,7 @@ changeCustomsmiley = function(e){
             $smileys.append('<img src="'+urls[i]+'" alt="src" />\n');
         }
     }
-    storage.set( 'qr_customsmileys', escape( JSON.stringify(urls)));
+    storage.set( 'qr_customsmileys', JSON.stringify(urls.map(escape)));
 },
 changeSmileys = function(e){
     $('#smileys')[storage.get('qr_smileys',optionen.qr_smileys)?'show':'hide']();
@@ -274,9 +277,12 @@ $('#qr_row2').delegate('input:checkbox','click', clickEinstellung).find('input')
 
 // CUSTOM SMILEYS
 $('#qr_customsmileys').change(changeCustomsmiley).val(
-    storage.get('qr_customsmileys',optionen.qr_customsmileys).map(function(elem){
-        return unescape( elem);
-    }).join('\n')
+#ifdef CHROME
+    JSON.parse(storage.get('qr_customsmileys',optionen.qr_customsmileys)).map(unescape).join('\n')
+#endif
+#ifdef GREASEMONKEY
+    storage.get('qr_customsmileys',optionen.qr_customsmileys).map(unescape).join('\n')
+#endif
 ).change();
 
 
