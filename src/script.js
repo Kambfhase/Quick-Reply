@@ -30,7 +30,7 @@ cl  = window.console ? function(){ window.console.log.apply(window.console, argu
 tid = /TID=(\d+)/i.exec( window.location.search)[1],
 jqTBody = (document.evaluate("//tbody[ ./tr[ @username] ]", document, null, 8, null).singleNodeValue),
 qr_row0, qr_row1, qr_row2, qrrxp,
-storage, $, token_newreply;
+storage, $, token_newreply, addTextWeiche;
 
 #if GREASEMONKEY
 
@@ -40,6 +40,10 @@ storage = { get: function( a,b){
 }, set: GM_setValue };
 $= unsafeWindow.jQuery;
 token_newreply = unsafeWindow.token_newreply;
+
+addTextWeiche = function( text){
+    unsafeWindow.addText( text, unsafeWindow.document.forms['newreply']);
+}
 
 #endif
 #ifdef CHROME
@@ -55,6 +59,12 @@ storage = {
 };
 $= window.jQuery;
 token_newreply = /token_newreply\s+=\s+'(\w+)'/i.exec(document.documentElement.innerHTML)[1],
+
+addTextWeiche = function( text){
+    $('#message').text(function(i, old){
+        return old + text;
+    });
+}
 
 #endif
 
@@ -157,7 +167,7 @@ var parse = function( text, boolEdit ){
 },
 clickPosticon = function clickPosticon( e){
     if( storage.get('qr_clickable_posticons',optionen.qr_clickable_posticons)){
-        WINDOW.addText( this.getAttribute("alt"), WINDOW.document.forms['newreply']);
+        addTextWeiche( this.getAttribute("alt"));
     } else {
         $('#qr_row1').find('#gmqr'+$(this).attr('tg')).click();
         //$(this).prev().click();
@@ -193,7 +203,7 @@ clickZitieren = function(e){
     document.getElementById('message').focus();
     
 
-    WINDOW.addText( text, WINDOW.document.forms['newreply']);
+    addTextWeiche( text);
     
     return false;
 },
@@ -232,7 +242,7 @@ ajaxEditpage = function( data){
 clickSmiley = function(e){
     var $this = $(this);
     
-    WINDOW.addText( ($this.attr('alt') == "src" ? ('[img]'+$this.attr('src')+'[/img]') : $this.attr('alt')), WINDOW.document.forms['newreply']);
+    addTextWeiche( $this.attr('alt') == "src" ? ('[img]'+$this.attr('src')+'[/img]') : $this.attr('alt'));
 },
 changeCustomsmiley = function(e){
     var urls = $(this).val().split('\n'),
@@ -289,7 +299,7 @@ $('#qr_customsmileys').change(changeCustomsmiley).val(
 ).change();
 
 
-#ifndef CHROME
+#ifdef NEVER
 #include "buttons.js"
 
 #include "slice.js"
