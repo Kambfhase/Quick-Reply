@@ -1,3 +1,10 @@
+#if GREASEMONKEY
+#define WINDOW unsafeWindow
+#else
+#define WINDOW window
+#endif 
+
+
 #include "header.js"
 #include "jquery.js"
 
