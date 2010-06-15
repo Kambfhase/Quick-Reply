@@ -187,15 +187,13 @@ clickZitieren = function(e){
         unescape(ptr.attr('username'))+ // Username
         '"]'+$('<div />').html(text).text().trim()+'[/quote]';
     
-        $('#qr_row1').show();
-        $('#qr_row2,#qr_row0').hide();
+    $('#qr_row1').show();
+    $('#qr_row2,#qr_row0').hide();
+
+    document.getElementById('message').focus();
     
-        document.getElementById('message').focus();
-        try{
-            window.addText( text, window.document.forms['newreply']);
-        }catch(e){
-            $('#message').text(text);
-        };
+
+    WINDOW.addText( text, WINDOW.document.forms['newreply']);
     
     return false;
 },
