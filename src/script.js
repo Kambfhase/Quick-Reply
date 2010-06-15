@@ -26,7 +26,7 @@ var optionen = {
             "code":"[url=steam://connect/93.190.68.179:27015][img]http://www.abload.de/img/uber2fv6e.png[/img][/url]"
         }]
 },
-cl  = window.console ? function(){ window.console.log.apply(window.console, arguments); } : GM_log,
+cl  = WINDOW.console ? function(){ WINDOW.console.log.apply( WINDOW.console, arguments); } : GM_log,
 tid = /TID=(\d+)/i.exec( window.location.search)[1],
 jqTBody = (document.evaluate("//tbody[ ./tr[ @username] ]", document, null, 8, null).singleNodeValue),
 qr_row0, qr_row1, qr_row2, qrrxp,
@@ -235,9 +235,11 @@ ajaxEditpage = function( data){
     code= parse(post.html(), true);
     qr_edit.find('textarea[name="message"]').val(code);
     qr_edit.find('form').attr('action', "editreply.php").append($('<input type="hidden" name="PID"/>').val(pid));
-    qr_edit.find('input[name="post_icon"]').attr('name','edit_icon'); 
-    //.next('img').filter('[src*="'+ (icon.attr('src') || '') +'"]');
-    
+    qr_edit.find('input[name="post_icon"]').attr('name','edit_icon');
+    if( icon.length){
+        $(document.querySelectorAll('#qr_row1 > td:last-child img[src*="'+ icon.attr('src').replace(/(\/|\.)/g,"\\$1") +'"]')).prev().attr('checked','checked');
+        $('#gmqr0').removeAttr('checked');
+    }
 },
 clickSmiley = function(e){
     var $this = $(this);
