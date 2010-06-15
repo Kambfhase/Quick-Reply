@@ -157,9 +157,7 @@ var parse = function( text, boolEdit ){
 },
 clickPosticon = function clickPosticon( e){
     if( storage.get('qr_clickable_posticons',optionen.qr_clickable_posticons)){
-        #ifdef GREASEMONKEY
-        unsafeWindow.addText( this.getAttribute("alt"), unsafeWindow.document.forms['newreply']);
-        #endif
+        WINDOW.addText( this.getAttribute("alt"), WINDOW.document.forms['newreply']);
     } else {
         $('#qr_row1').find('#gmqr'+$(this).attr('tg')).click();
         //$(this).prev().click();
@@ -236,7 +234,7 @@ ajaxEditpage = function( data){
 clickSmiley = function(e){
     var $this = $(this);
     
-    window.addText( ($this.attr('alt') == "src" ? ('[img]'+$this.attr('src')+'[/img]') : $this.attr('alt')), window.document.forms['newreply']);
+    WINDOW.addText( ($this.attr('alt') == "src" ? ('[img]'+$this.attr('src')+'[/img]') : $this.attr('alt')), WINDOW.document.forms['newreply']);
 },
 changeCustomsmiley = function(e){
     var urls = $(this).val().split('\n'),
