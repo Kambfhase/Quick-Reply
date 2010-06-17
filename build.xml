@@ -35,7 +35,7 @@
             <mapper type="glob" from="script.js" to="done.js" />
         </apply>
                     
-        <copy tofile="${build}/script_${CHROME}.js" file="${temp}/done.js" />
+        <copy tofile="${build}/quick-reply_by_kambfhase_${CHROME}.user.js" file="${temp}/done.js" />
         
     </target>    
 
