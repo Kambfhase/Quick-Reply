@@ -106,7 +106,7 @@ qrrxp={
         "thread:$1" : /<a href="\.\/thread\.php\?TID=(\d*)"><span>thread:<\/span>.*?<\/a>/gi,
         "board:$1" : /<a href="\.\/board\.php\?BID=(\d*)"><span>board:<\/span>.*?<\/a>/gi,
         "[code]$2[/code]": /Code:(?=([\s\S]+?<pre))\1 class="code">([\s\S]*?)<\/pre>/gi,
-        "[php]$4[/php]": /PHP:(?=([\s\S]+<div))\1 class=(['"])phpcode\2><code><span (?=([^>]*>))\3\n(.*)<\/span>\s*<\/code><\/div>/gi,
+        "[php]$4[/php]": /PHP:(?=([\s\S]+<div))\1 class=(['"])phpcode\2><code><span (?=([^>]*>))\3\n([\s\S]*)<\/span>\s*<\/code><\/div>/gi,
         "[spoiler]" : /<i>Spoiler<\/i> - markieren, um zu lesen:<br>\n(?:<\/b>)*<div class="spoiler">/gi,
         "[/spoiler]" : /<\/div>/gim,
         "[/quote]\n" : /<\/td><\/tr><\/tbody><\/table><\/td><\/tr><\/tbody><\/table>/gi,
