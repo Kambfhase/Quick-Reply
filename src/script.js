@@ -309,10 +309,9 @@ $('#qr_customsmileys').change(changeCustomsmiley).val(
     storage.get('qr_customsmileys',optionen.qr_customsmileys).map(unescape).join('\n')
 ).change();
 
-
-#ifdef NEVER
 #include "buttons.js"
 
+#ifdef NEVER
 #include "slice.js"
 
 #include "save.js"

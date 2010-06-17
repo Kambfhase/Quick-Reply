@@ -4,11 +4,11 @@
 
 (function(){
 
-var obj= JSON.parse( GM_getValue('qr_custombuttons', optionen.qr_custombuttons)),
+var obj= storage.get('qr_custombuttons', optionen.qr_custombuttons),
     i=0,
     div=$('<div />'),
 clickCustombuttons = function(e){
-    window.addText( $(this).attr('code') , window.document.forms['newreply']);
+    addTextWeiche( $(this).attr('code'));
 },
 clickMinus = function(e){
     $(this).nextUntil('a').andSelf().remove();
@@ -27,12 +27,12 @@ changeCustombuttons = function( e){
         }
     });
     obj = JSON.stringify( obj);
-    GM_setValue('qr_custombuttons', obj);
+    storage.set('qr_custombuttons', obj);
     createCustombuttons();
 },
 createCustombuttons = function(e){
     var span = $('#qr_insertcustombuttonshere').empty(),
-        obj = JSON.parse(GM_getValue('qr_custombuttons', optionen.qr_custombuttons)),
+        obj = storage.get('qr_custombuttons', optionen.qr_custombuttons),
         i = 0;
     for(; i<obj.length; ++i){
         if( /^http|^www/.test( obj[i].url)){
@@ -49,7 +49,7 @@ $('#qr_custombuttons').delegate('a','click',clickMinus).bind('change', changeCus
 $('#qr_insertcustombuttonshere').delegate('img[code]','click',clickCustombuttons);
 
 for(;i< obj.length; ++i){
-    div.append('<a href="javascript:void 0;">-</a> <label>URL: <input type="text" name="url" value="'+obj[i].url+'" /></label> <label> Code: <input type="text" name="code" value="'+obj[i].code+'" /></label><br />\n');
+    div.append('<a href="javascript:void 0;">-</a> <label> URL: <input type="text" name="url" value="'+unescape(obj[i].url)+'" /></label> <label> Code: <input type="text" name="code" value="'+unescape(obj[i].code)+'" /></label><br />\n');
 }
 
 div.children().appendTo('#qr_custombuttons');
@@ -57,5 +57,5 @@ div.children().appendTo('#qr_custombuttons');
 
 changeCustombuttons.apply( $('#qr_custombuttons').get(0));
 
-});
+})();
 #endif
