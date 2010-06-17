@@ -181,7 +181,6 @@ clickPosticon = function clickPosticon( e){
     }
 },
 clickEinstellung = function(e){
-    cl("clickEinstellung");
     var setting = this.id;
     if( storage.get( setting, optionen[setting])){
         $(this).removeAttr('checked');
