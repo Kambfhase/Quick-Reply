@@ -54,7 +54,14 @@ storage = {
     },
     get: function( a, b){
         a = window.localStorage.getItem( a);
-        return a !== null ? JSON.parse(a) : b;
+        if( a === null){
+            return b;
+        } else {
+            while( typeof a !== typeof b){
+                a= JSON.parse(a);
+            }
+            return a;
+        }
     }
 };
 $= window.jQuery;
@@ -174,6 +181,7 @@ clickPosticon = function clickPosticon( e){
     }
 },
 clickEinstellung = function(e){
+    cl("clickEinstellung");
     var setting = this.id;
     if( storage.get( setting, optionen[setting])){
         $(this).removeAttr('checked');
@@ -257,7 +265,14 @@ changeCustomsmiley = function(e){
     storage.set( 'qr_customsmileys', JSON.stringify(urls.map(escape)));
 },
 changeSmileys = function(e){
+
+    #if GREASEMONKEY
     $('#smileys')[storage.get('qr_smileys',optionen.qr_smileys)?'show':'hide']();
+    #endif
+    #if CHROME
+    // in Chrome kommt change vor click, deswegen muss der Anzeigestand selber umgedreht werden.
+    $('#smileys')[storage.get('qr_smileys',optionen.qr_smileys)?'hide':'show']();
+    #endif
 };
 
 // HTML EINFÜGEN & HANDLER REGISTRIEREN & MISC
@@ -292,12 +307,7 @@ $('#qr_row2').delegate('input:checkbox','click', clickEinstellung).find('input')
 
 // CUSTOM SMILEYS
 $('#qr_customsmileys').change(changeCustomsmiley).val(
-#ifdef CHROME
-    JSON.parse(storage.get('qr_customsmileys',optionen.qr_customsmileys)).map(unescape).join('\n')
-#endif
-#ifdef GREASEMONKEY
     storage.get('qr_customsmileys',optionen.qr_customsmileys).map(unescape).join('\n')
-#endif
 ).change();
 
 
