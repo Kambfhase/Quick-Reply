@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Quick-Reply by Kambfhase
-// @version     2.6.1
+// @version     2.6.2
 // @author      Kambfhase
 #ifdef GREASEMONKEY
 // @description ein Quick-Reply Script für mods.de - Greasemonkey Version
