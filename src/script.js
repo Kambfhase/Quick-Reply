@@ -101,13 +101,12 @@ qr_row2 = (
 #include "qr_row2.htm"
 );
 
-qrrxp={
+qrrxp={    
         "profil:$1" : /<a href="javascript:void\(0\)" onclick="openProfile2?\((\d*)\)"><span>profil:<\/span>.*?<\/a>/gi,
         "thread:$1" : /<a href="\.\/thread\.php\?TID=(\d*)"><span>thread:<\/span>.*?<\/a>/gi,
         "board:$1" : /<a href="\.\/board\.php\?BID=(\d*)"><span>board:<\/span>.*?<\/a>/gi,
-        "[code]$1[/code]": /<pre class="code">(.*?)<\/pre>/gi,
-        //"[code]" : /<table(?: width="100%")? border="0" cellpadding="0" cellspacing="0"(?: width="100%")?>\n<tbody><tr><td width="10%">&nbsp;<\/td><td bgcolor="#000000">\n<table(?: width="100%")? border="0" cellpadding="1" cellspacing="1"(?: width="100%")?>\n  <tbody><tr bgcolor="#008fe1">\n<td>Code: <\/td><\/tr>\n  <tr bgcolor="#9a9a9a">\n<td><pre class="code">/gi,
-        //"[/code]" : /<\/pre><\/td><\/tr>\n?\r?<\/tbody><\/table><\/td><\/tr><\/tbody><\/table>/gi,
+        "[code]$2[/code]": /Code:(?=([\s\S]+?<pre))\1 class="code">([\s\S]*?)<\/pre>/gi,
+        "[php]$4[/php]": /PHP:(?=([\s\S]+<div))\1 class=(['"])phpcode\2><code><span (?=([^>]*>))\3\n(.*)<\/span>\s*<\/code><\/div>/gi,
         "[spoiler]" : /<i>Spoiler<\/i> - markieren, um zu lesen:<br>\n(?:<\/b>)*<div class="spoiler">/gi,
         "[/spoiler]" : /<\/div>/gim,
         "[/quote]\n" : /<\/td><\/tr><\/tbody><\/table><\/td><\/tr><\/tbody><\/table>/gi,
@@ -145,16 +144,14 @@ qrrxp={
         "[url=$1]$2[/url]" : /<a href="([^"]*)" target="_blank">(.*?)<\/a>/gi,
         '[quote=$1,$2,"$3"]' :   /<td class="quote"><a href="thread\.php\?TID=(\d*)&amp;PID=(\d*)#reply_\d*">Zitat<\/a> von ([^<]*)<br>/gi,
         "[quote]" :              /<td class="quote">/gi,
-        "[m]$1[/m]": /<pre class="inline m">(.*?)<\/pre>/gi,
-        //"[m]" : /<pre class="inline m">/gi,
-        //"[/m]" : /<\/pre>/gi,
+        "[m]$2[/m]": /<pre class=(['"])inline m\1>([\s\S]*?)<\/pre>/gi,
         "[b]" : /\[b](?:<br>\n)*\s+/gi,
         //"[/table]" : /<\/tbody><\/table>/gi,
         //"[--]\n" : /<\/tr><tr>/gi,
         //"[||]" : /<\/td><td>/gi,
         //"[table]" : /<table class="" border="\d+" cellpadding="2" cellspacing="0"><tbody>/gim,
         "": /DELETEDUMMY/gi,
-        "\n": /\n\s*/gim,
+        "\n": /\n\s*/gi,
 };
 
 
@@ -170,7 +167,7 @@ var parse = function( text, boolEdit ){
     for( str in qrrxp){
         text = text.replace( qrrxp[str], str);
     }
-    return $('<div />').html(text).text().trim();
+    return $('<div />').html(text).text().trim().replace(/\n *\n\s*/gi,"\n\n");
 },
 clickPosticon = function clickPosticon( e){
     if( storage.get('qr_clickable_posticons',optionen.qr_clickable_posticons)){
@@ -202,7 +199,7 @@ clickZitieren = function(e){
         /(\d+)$/.exec($(this).attr('href'))[1]+ // PostID
         ',"'+
         unescape(ptr.attr('username'))+ // Username
-        '"]'+$('<div />').html(text).text().trim()+'[/quote]';
+        '"]'+text+'[/quote]';
     
     $('#qr_row1').show();
     $('#qr_row2,#qr_row0').hide();
