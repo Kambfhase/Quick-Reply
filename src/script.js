@@ -283,12 +283,19 @@ $('<div/>').append( unescape(qr_row0))
 
 $(jqTBody).delegate('a[href^="newreply.php?PID="]','click', clickZitieren).delegate('a[href^="./editreply.php?PID="]','click', clickEditieren);
 
-$('#qr_row0,#qr_row2').find('a:first').click(function(e){
+$('#qr_row0, #qr_row2').find('a:first').click(function(e){
     $('#qr_row1').show(); 
     $('#qr_row0,#qr_row2').hide();
     document.getElementById('message').focus();
 });
 
+$(document).keypress(function( e){
+    if( e.which === 113 && e.altKey){
+        $('#qr_row1').show(); 
+        $('#qr_row0, #qr_row2').hide();
+        document.getElementById('message').focus();
+    }
+});
 
 
 $('#qr_row1').delegate("input:radio + img","click", clickPosticon).find('a:first').click(function(e){
