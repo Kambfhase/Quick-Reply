@@ -3,20 +3,42 @@
 #define SAVE_JS
 
 (function(){
-var flag = false;
+    var flag = false;
 
-$(window).unload(function(e){
-    var text = JSON.parse(GM_getValue('qr_save','{}'));
-    text[tid] = flag ? $('#message').val() : '';
-    GM_setValue('qr_save',JSON.stringify(text));
-});
+    $(window).unload(function(e){
+        if( !storage.get('qr_savepost',false)){
+            return;
+        }
+        var obj = storage.get('qr_save',{}),
+            neu = $('#message').val() || '';
+            
+        if( flag){
+            // submit, dh. Speicher leeren.
+            if( tid in obj){
+                delete obj[ tid];
+                storage.set('qr_save',JSON.stringify( obj));
+            }
+        
+        } else {
+            // nicht abgeschickt
+            if( neu && /\S/.test(neu)){
+                obj[tid]=neu;
+                storage.set('qr_save', JSON.stringify( obj));
+            } else {
+                delete obj[ tid];
+                storage.set('qr_save',JSON.stringify( obj));
+            }
+        }
+    });
 
-$('#qr_row1').find('input:submit').submit(function(e){
-     flag = true;
-});
+    $('#qr_row1').submit(function(e){
+         flag = true;
+    });
 
-$('#message').val( JSON.parse(GM_getValue('qr_save','{}'))[tid] || '' );
+    if( storage.get('qr_savepost',false)){
+        $('#message').val( storage.get('qr_save',{})[tid] || '' );
+    }
 
-});
+})();
 
 #endif
