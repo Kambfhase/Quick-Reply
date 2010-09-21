@@ -258,7 +258,7 @@ changeCustomsmiley = function(e){
             $smileys.append('<img src="'+urls[i]+'" alt="src" />\n');
         }
     }
-    storage.set( 'qr_customsmileys', JSON.stringify(urls.map(escape)));
+    storage.set( 'qr_customsmileys', JSON.stringify(urls.map(encodeURI)));
 },
 changeSmileys = function(e){
 
