@@ -191,23 +191,39 @@ clickZitieren = function(e){
     if( e.which !== 1 || !storage.get('qr_zitieren',optionen.qr_zitieren)){
         return true;
     }
-    e.preventDefault();
-    var fett = storage.get("qr_zitate_fett", optionen.qr_zitate_fett),
+    var pid = /(\d+)$/.exec($(this).attr('href'))[1],
         ptr = $(this).closest('tr.color1').prev(),
-        text = (fett?"[b]\n":"\n")+parse(ptr.find('span.posttext').html())+(fett?"\n[/b]":"\n");
-    text = '[quote='+tid+','+
-        /(\d+)$/.exec($(this).attr('href'))[1]+ // PostID
-        ',"'+
-        unescape(ptr.attr('username'))+ // Username
-        '"]'+text+'[/quote]';
+        fett = storage.get("qr_zitate_fett", optionen.qr_zitate_fett);
+    // sync
     
-    $('#qr_row1').show();
-    $('#qr_row2,#qr_row0').hide();
+    /*
 
-    document.getElementById('message').focus();
+    var text = parse(ptr.find('span.posttext').html());
+
+    */
     
+    // async
+    $.ajax({
+        url: "xml/thread.php?onlyPID="+ pid/*1241825996*/+"&TID="+tid,//190550
+        success: function( data){
+            var text = data.querySelector("content").textContent
+            
+             text = '[quote='+tid+','+
+                pid+ // PostID
+                ',"'+
+                unescape(ptr.attr('username'))+ // Username
+                '"]'+(fett?"[b]\n":"\n")+text+(fett?"\n[/b]":"\n")+'[/quote]';
+                
+            
+            $('#qr_row1').show();
+            $('#qr_row2,#qr_row0').hide();
 
-    addTextWeiche( text);
+            document.getElementById('message').focus();
+
+            addTextWeiche( text);
+        }
+    });
+    
     
     return false;
 },
