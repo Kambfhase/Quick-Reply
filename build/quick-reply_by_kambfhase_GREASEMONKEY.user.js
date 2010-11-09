@@ -3,7 +3,7 @@
 // @author      Kambfhase
 
 // @description ein Quick-Reply Script für mods.de - Greasemonkey Version
-// @version     2.6.6 - Greasemonkey Version
+// @version     2.6.7 - Greasemonkey Version
 
 
 
@@ -376,9 +376,51 @@ clickEditieren = function(e){
     }
     e.preventDefault();
 
+    var counter = 2,
+        $data, code, pid = /(\d+)$/.exec($(this).attr('href'))[1];
+
+    function weiter(){
+        // wird aufgerufen, wenn beide XHRs angekommen sind.
+        if( counter = --counter){
+            return;
+        }
+        var token = $data.find('input[name="token"]').val(),
+            //pid = $data.find('input[name="PID"]').val(),
+            //code = $data.find('textarea[name="message"]').text(),
+            link = $('a[href="./editreply.php?PID='+pid+'"]',jqTBody),
+            post = link.closest('tr.color1').prev().find('span.posttext'),
+            icon = post.closest('tr').prev().find('img'),
+            title = $data.find('input[name="edit_title"]').val();
+
+        $('#qr_row0').hide();
+        var qr_edit = $('#qr_row1,qr_row2').detach().insertAfter( link.closest('tr.color1')).hide().filter('#qr_row1').show();
+        qr_edit.find('input[name="token"]').val(token);
+        //code= parse(post.html(), true);
+        qr_edit.find('textarea[name="message"]').val(code);
+        qr_edit.find('form').attr('action', "editreply.php").append($('<input type="hidden" name="PID"/>').val(pid));
+        qr_edit.find('input[name="post_icon"]').attr('name','edit_icon');
+        qr_edit.find('input[name="post_title"]').attr('name','edit_title').val(title);
+        if( icon.length){
+            $(document.querySelectorAll('#qr_row1 > td:last-child img[src*="'+ icon.attr('src').replace(/(\/|\.)/g,"\\$1") +'"]')).prev().attr('checked','checked');
+            $('#gmqr0').removeAttr('checked');
+        }
+    }
+
+    $.ajax({
+        url: "xml/thread.php?onlyPID="+ pid/*1241825996*/+"&TID="+tid,//190550
+        success: function( data){
+            code = data.querySelector("content").textContent;
+            weiter();
+        }
+    });
+
     $.get(
         $(this).attr('href'),
-        ajaxEditpage
+        //ajaxEditpage
+        function( data){
+            $data = $(data);
+            weiter();
+        }
     );
     return false;
 },
