@@ -24,7 +24,8 @@ var optionen = {
         qr_custombuttons : [{
             "url":"http://abload.de/img/uberkano.png",
             "code":"[url=steam://connect/93.190.68.179:27015][img]http://www.abload.de/img/uber2fv6e.png[/img][/url]"
-        }]
+        }],
+        qr_savepost: false
 },
 cl  = WINDOW.console ? function(){ WINDOW.console.log.apply( WINDOW.console, arguments); } : GM_log,
 tid = /TID=(\d+)/i.exec( window.location.search)[1],
