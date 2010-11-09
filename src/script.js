@@ -206,13 +206,15 @@ clickZitieren = function(e){
     $.ajax({
         url: "xml/thread.php?onlyPID="+ pid/*1241825996*/+"&TID="+tid,//190550
         success: function( data){
-            var text = data.querySelector("content").textContent
+            var text = data.querySelector("content").textContent,
+                img2url = /\[url=([^\]])+\]\[img\][^]]*\[/img\]\[/url\]/gi;
             
-             text = '[quote='+tid+','+
+            text = '[quote='+tid+','+
                 pid+ // PostID
                 ',"'+
                 unescape(ptr.attr('username'))+ // Username
-                '"]'+(fett?"[b]\n":"\n")+text+(fett?"\n[/b]":"\n")+'[/quote]';
+                '"]'+(fett?"[b]\n":"\n")+text.replace(img2url,"[url]$1[/url]")+(fett?"\n[/b]":"\n")+'[/quote]';
+                
                 
             
             $('#qr_row1').show();
