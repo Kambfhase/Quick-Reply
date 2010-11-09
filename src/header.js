@@ -3,11 +3,11 @@
 // @author      Kambfhase
 #ifdef GREASEMONKEY
 // @description ein Quick-Reply Script für mods.de - Greasemonkey Version
-// @version     2.6.5 - Greasemonkey Version
+// @version     2.6.6 - Greasemonkey Version
 #endif
 #ifdef CHROME
 // @description ein Quick-Reply Script für mods.de - Chrome Version
-// @version     2.6.5 - Chrome Version
+// @version     2.6.6 - Chrome Version
 #endif
 // @include     http://forum.mods.de/bb/thread.php?*
 // @include     http://forum.mods.de/bb//thread.php?*

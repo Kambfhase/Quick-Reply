@@ -1,8 +1,14 @@
 // ==UserScript==
 // @name        Quick-Reply by Kambfhase
 // @author      Kambfhase
+
 // @description ein Quick-Reply Script für mods.de - Greasemonkey Version
-// @version     2.6.4 - Greasemonkey Version
+// @version     2.6.6 - Greasemonkey Version
+
+
+
+
+
 // @include     http://forum.mods.de/bb/thread.php?*
 // @include     http://forum.mods.de/bb//thread.php?*
 // @match     http://forum.mods.de/bb/thread.php?*
@@ -181,7 +187,8 @@ var optionen = {
         qr_custombuttons : [{
             "url":"http://abload.de/img/uberkano.png",
             "code":"[url=steam://connect/93.190.68.179:27015][img]http://www.abload.de/img/uber2fv6e.png[/img][/url]"
-        }]
+        }],
+        qr_savepost: false
 },
 cl = unsafeWindow.console ? function(){ unsafeWindow.console.log.apply( unsafeWindow.console, arguments); } : GM_log,
 tid = /TID=(\d+)/i.exec( window.location.search)[1],
@@ -321,23 +328,45 @@ clickZitieren = function(e){
     if( e.which !== 1 || !storage.get('qr_zitieren',optionen.qr_zitieren)){
         return true;
     }
-    e.preventDefault();
-    var fett = storage.get("qr_zitate_fett", optionen.qr_zitate_fett),
+    var pid = /(\d+)$/.exec($(this).attr('href'))[1],
         ptr = $(this).closest('tr.color1').prev(),
-        text = (fett?"[b]\n":"\n")+parse(ptr.find('span.posttext').html())+(fett?"\n[/b]":"\n");
-    text = '[quote='+tid+','+
-        /(\d+)$/.exec($(this).attr('href'))[1]+ // PostID
-        ',"'+
-        unescape(ptr.attr('username'))+ // Username
-        '"]'+text+'[/quote]';
+        fett = storage.get("qr_zitate_fett", optionen.qr_zitate_fett);
+    // sync
 
-    $('#qr_row1').show();
-    $('#qr_row2,#qr_row0').hide();
-
-    document.getElementById('message').focus();
+    /*
 
 
-    addTextWeiche( text);
+
+    var text = parse(ptr.find('span.posttext').html());
+
+
+
+    */
+    // async
+    $.ajax({
+        url: "xml/thread.php?onlyPID="+ pid/*1241825996*/+"&TID="+tid,//190550
+        success: function( data){
+            var text = data.querySelector("content").textContent,
+                img2url = /\[url=([^\]]+)\]\[img\][^\]]*\[\/img\]\[\/url\]/gi;
+
+            text = text.replace(img2url,"[url]$1[/url]");
+            text = '[quote='+tid+','+
+                pid+ // PostID
+                ',"'+
+                unescape(ptr.attr('username'))+ // Username
+                '"]'+(fett?"[b]\n":"\n")+text+(fett?"\n[/b]":"\n")+'[/quote]';
+
+
+
+            $('#qr_row1').show();
+            $('#qr_row2,#qr_row0').hide();
+
+            document.getElementById('message').focus();
+
+            addTextWeiche( text);
+        }
+    });
+
 
     return false;
 },
@@ -361,7 +390,8 @@ ajaxEditpage = function( data){
         code = $data.find('textarea[name="message"]').text(),
         link = $('a[href="./editreply.php?PID='+pid+'"]',jqTBody),
         post = link.closest('tr.color1').prev().find('span.posttext'),
-        icon = post.closest('tr').prev().find('img');
+        icon = post.closest('tr').prev().find('img'),
+        title = $data.find('input[name="edit_title"]').val();
 
     $('#qr_row0').hide();
     var qr_edit = $('#qr_row1,qr_row2').detach().insertAfter( link.closest('tr.color1')).hide().filter('#qr_row1').show();
@@ -370,6 +400,7 @@ ajaxEditpage = function( data){
     qr_edit.find('textarea[name="message"]').val(code);
     qr_edit.find('form').attr('action', "editreply.php").append($('<input type="hidden" name="PID"/>').val(pid));
     qr_edit.find('input[name="post_icon"]').attr('name','edit_icon');
+    qr_edit.find('input[name="post_title"]').attr('name','edit_title').val(title);
     if( icon.length){
         $(document.querySelectorAll('#qr_row1 > td:last-child img[src*="'+ icon.attr('src').replace(/(\/|\.)/g,"\\$1") +'"]')).prev().attr('checked','checked');
         $('#gmqr0').removeAttr('checked');
