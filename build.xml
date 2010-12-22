@@ -4,7 +4,7 @@
     <property name="build" location="build" />
     <property name="src"   location="src" />
     <property name="temp"  location="temp" />
-    <property name="CHROME" value="GREASEMONKEY"/>
+    <property name="BROWSER" value="GREASEMONKEY"/>
     
     <target name="init">
         <delete dir="${temp}" />
@@ -29,13 +29,13 @@
             <fileset dir="${temp}" includes="script.js" />
             <arg value="-P" />
             <arg value="-C" />
-            <arg value="-D ${CHROME}" />
+            <arg value="-D ${BROWSER}" />
             <srcfile/>
             <targetfile/>
             <mapper type="glob" from="script.js" to="done.js" />
         </apply>
                     
-        <copy tofile="${build}/quick-reply_by_kambfhase_${CHROME}.user.js" file="${temp}/done.js" />
+        <copy tofile="${build}/quick-reply_by_kambfhase_${BROWSER}.user.js" file="${temp}/done.js" />
         
     </target>    
 
