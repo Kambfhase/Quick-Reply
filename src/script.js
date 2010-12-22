@@ -30,7 +30,7 @@ var optionen = {
 cl  = WINDOW.console ? function(){ WINDOW.console.log.apply( WINDOW.console, arguments); } : GM_log,
 tid = /TID=(\d+)/i.exec( window.location.search)[1],
 jqTBody = (document.evaluate("//tbody[ ./tr[ @username] ]", document, null, 8, null).singleNodeValue),
-qr_row0, qr_row1, qr_row2, qrrxp,
+qr_row0, qr_row1, qr_row2,
 storage, $, token_newreply, addTextWeiche;
 
 #if GREASEMONKEY
@@ -46,8 +46,7 @@ addTextWeiche = function( text){
     unsafeWindow.addText( text, unsafeWindow.document.forms['newreply']);
 }
 
-#endif
-#ifdef CHROME
+#else
 
 storage = { 
     set: function( a, b){
@@ -72,6 +71,13 @@ addTextWeiche = function( text){
     $('#message').text(function(i, old){
         return old + text;
     });
+}
+
+#endif
+#ifdef OPERA
+
+function GM_addStyle( txt){
+    $("<style>").text( txt).appendTo("head");
 }
 
 #endif
@@ -102,75 +108,9 @@ qr_row2 = (
 #include "qr_row2.htm"
 );
 
-qrrxp={    
-        "profil:$1" : /<a href="javascript:void\(0\)" onclick="openProfile2?\((\d*)\)"><span>profil:<\/span>.*?<\/a>/gi,
-        "thread:$1" : /<a href="\.\/thread\.php\?TID=(\d*)"><span>thread:<\/span>.*?<\/a>/gi,
-        "board:$1" : /<a href="\.\/board\.php\?BID=(\d*)"><span>board:<\/span>.*?<\/a>/gi,
-        "[code]$2[/code]": /Code:(?=([\s\S]+?<pre))\1 class="code">([\s\S]*?)<\/pre>/gi,
-        "[php]$4[/php]": /PHP:(?=([\s\S]+<div))\1 class=(['"])phpcode\2><code><span (?=([^>]*>))\3\n([\s\S]*?)<\/span>\s*<\/code><\/div>/gi,
-        "[spoiler]" : /<i>Spoiler<\/i> - markieren, um zu lesen:<br>\n(?:<\/b>)*<div class="spoiler">/gi,
-        "[/spoiler]" : /<\/div>/gim,
-        "[/quote]\n" : /<\/td><\/tr><\/tbody><\/table><\/td><\/tr><\/tbody><\/table>/gi,
-        "[/b]<br>" : /(?:<br>)*\n*<\/b>/gim,
-        "[$1$2]" : /<(\/)?(b|i|s|u)>/gi,
-        "[mod]$1[/mod]" : /<span class="marked">(.*?)<\/span>/gi,
-        "\n\t[*]" : /<li>/gim,
-        "DELETEDUMMYDELETEDUMMY" : /<\/li>/gim,
-        "[list]$1[/list]" : /<ul>(.*)<\/ul>/gim,
-        "[list=$1]" : /<ol type="(a|1)">/gim,
-        "[list]" : /<ul>/gim,
-        "[/list]" : /<\/(?:ol|ul)>/gim,
-        "DELETEDUMMY" : /\[b\]\s*\[\/b\]/gim,
-        ";)" : /<img src="img\/smilies\/wink\.gif" alt="Augenzwinkern" align="abscenter">/gi,
-        ":(" : /<img src="\.\/img\/smilies\/icon12\.gif" alt="traurig" align="abscenter">/gi,
-        ":)" : /<img src="\.\/img\/smilies\/icon7\.gif" alt="" align="abscenter">/gi,
-        ":bang:" : /<img src="\.\/img\/smilies\/banghead\.gif" alt="Kopf gegen die Wand schlagen" align="abscenter">/gi,
-        ":confused:" : /<img src="\.\/img\/smilies\/confused\.gif" alt="verwirrt" align="abscenter">/gi,
-        ":D" : /<img src="img\/smilies\/biggrin\.gif" alt="Breites Grinsen" align="abscenter">/gi,
-        ":eek:" : /<img src="img\/smilies\/icon15\.gif" alt="Erschrocken" align="abscenter">/gi,
-        ":hm:" : /<img src="img\/smilies\/hm\.gif" alt="Hmmm" align="abscenter">/gi,
-        ":huch:" : /<img src="\.\/img\/smilies\/freaked\.gif" alt="Haare zu Berge stehen" align="abscenter">/gi,
-        ":mad:" : /<img src="img\/smilies\/icon13\.gif" alt="Wütend" align="abscenter">/gi,
-        ":mata:" : /<img src="img\/smilies\/mata\.gif" alt="Mata halt\.\.\." align="abscenter">/gi,
-        ":moo:" : /<img src="img\/smilies\/smiley-pillepalle\.gif" alt="Pillepalle" align="abscenter">/gi,
-        ":o" : /<img src="img\/smilies\/icon16\.gif" alt="peinlich\/erstaunt" align="abscenter">/gi,
-        ":P" : /<img src="img\/smilies\/icon2\.gif" alt="" align="abscenter">/gi,
-        ":roll:" : /<img src="\.\/img\/smilies\/icon18\.gif" alt="mit den Augen rollend" align="abscenter">/gi,
-        ":what:" : /<img src="\.\/img\/smilies\/sceptic\.gif" alt="skeptisch" align="abscenter">/gi,
-        ":wurgs:" : /<img src="\.\/img\/smilies\/urgs\.gif" alt="" align="abscenter">/gi,
-        ":zyklop:" : /<img src="\.\/img\/smilies\/icon1\.gif" alt="" align="abscenter">/gi,
-        ":|" : /<img src="img\/smilies\/icon8\.gif" alt="" align="abscenter">/gi,
-        "^^" : /<img src="\.\/img\/smilies\/icon5\.gif" alt="fröhlich" align="abscenter">/gi,
-        "[url]$1[/url]" : /<a href="([^"]*)" target="_blank">\1<\/a>/gi,
-        "[url=$1]$2[/url]" : /<a href="([^"]*)" target="_blank">(.*?)<\/a>/gi,
-        '[quote=$1,$2,"$3"]' :   /<td class="quote"><a href="thread\.php\?TID=(\d*)&amp;PID=(\d*)#reply_\d*">Zitat<\/a> von ([^<]*)<br>/gi,
-        "[quote]" :              /<td class="quote">/gi,
-        "[m]$2[/m]": /<pre class=(['"])inline m\1>([\s\S]*?)<\/pre>/gi,
-        "[b]" : /\[b](?:<br>\n)*\s+/gi,
-        //"[/table]" : /<\/tbody><\/table>/gi,
-        //"[--]\n" : /<\/tr><tr>/gi,
-        //"[||]" : /<\/td><td>/gi,
-        //"[table]" : /<table class="" border="\d+" cellpadding="2" cellspacing="0"><tbody>/gim,
-        "": /DELETEDUMMY/gi,
-        "\n": /\n\s*/gi,
-};
-
 
 // EVENT HANDLER
-var parse = function( text, boolEdit ){
-    var str;
-    if( !boolEdit){
-        text = text.replace(/<a href="([^"]*)" target="_blank"><img src="[^"]*" class="p" border="0"><\/a>/gi, "[url]$1[/url]");
-        text = text.replace(/<img src="([^"]*)" class="p" border="0">/gi, "[url]$1[/url]");
-    } else {
-        text = text.replace(/<img src="([^"]*)" class="p" border="0">/gi, "[img]$1[/img]");
-    }
-    for( str in qrrxp){
-        text = text.replace( qrrxp[str], str);
-    }
-    return $('<div />').html(text).text().trim().replace(/\n *\n\s*/gi,"\n\n");
-},
-clickPosticon = function clickPosticon( e){
+var clickPosticon = function clickPosticon( e){
     if( storage.get('qr_clickable_posticons',optionen.qr_clickable_posticons)){
         addTextWeiche( this.getAttribute("alt"));
     } else {
@@ -195,13 +135,6 @@ clickZitieren = function(e){
     var pid = /(\d+)$/.exec($(this).attr('href'))[1],
         ptr = $(this).closest('tr.color1').prev(),
         fett = storage.get("qr_zitate_fett", optionen.qr_zitate_fett);
-    // sync
-    
-    /*
-
-    var text = parse(ptr.find('span.posttext').html());
-
-    */
     
     // async
     $.ajax({
@@ -246,8 +179,6 @@ clickEditieren = function(e){
             return;
         }
         var token = $data.find('input[name="token"]').val(),
-            //pid = $data.find('input[name="PID"]').val(),
-            //code = $data.find('textarea[name="message"]').text(),
             link = $('a[href="./editreply.php?PID='+pid+'"]',jqTBody),
             post = link.closest('tr.color1').prev().find('span.posttext'),
             icon = post.closest('tr').prev().find('img'),
@@ -256,7 +187,6 @@ clickEditieren = function(e){
         $('#qr_row0').hide();
         var qr_edit = $('#qr_row1,qr_row2').detach().insertAfter( link.closest('tr.color1')).hide().filter('#qr_row1').show();
         qr_edit.find('input[name="token"]').val(token);
-        //code= parse(post.html(), true);
         qr_edit.find('textarea[name="message"]').val(code);
         qr_edit.find('form').attr('action', "editreply.php").append($('<input type="hidden" name="PID"/>').val(pid));
         qr_edit.find('input[name="post_icon"]').attr('name','edit_icon');
@@ -268,7 +198,7 @@ clickEditieren = function(e){
     }
     
     $.ajax({
-        url: "xml/thread.php?onlyPID="+ pid/*1241825996*/+"&TID="+tid,//190550
+        url: "xml/thread.php?onlyPID="+ pid +"&TID="+tid,
         success: function( data){
             code = data.querySelector("content").textContent;
             weiter();
@@ -326,10 +256,9 @@ changeCustomsmiley = function(e){
 },
 changeSmileys = function(e){
 
-    #if GREASEMONKEY
+    #if GREASEMONKEY || OPERA
     $('#smileys')[storage.get('qr_smileys',optionen.qr_smileys)?'show':'hide']();
-    #endif
-    #if CHROME
+    #else
     // in Chrome kommt change vor click, deswegen muss der Anzeigestand selber umgedreht werden.
     $('#smileys')[storage.get('qr_smileys',optionen.qr_smileys)?'hide':'show']();
     #endif
