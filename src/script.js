@@ -185,7 +185,7 @@ clickEditieren = function(e){
             title = $data.find('input[name="edit_title"]').val();
 
         $('#qr_row0').hide();
-        var qr_edit = $('#qr_row1,qr_row2').detach().insertAfter( link.closest('tr.color1')).hide().filter('#qr_row1').show();
+        var qr_edit = $('#qr_row1,#qr_row2').detach().insertAfter( link.closest('tr.color1')).hide().filter('#qr_row1').show();
         qr_edit.find('input[name="token"]').val(token);
         qr_edit.find('textarea[name="message"]').val(code);
         qr_edit.find('form').attr('action', "editreply.php").append($('<input type="hidden" name="PID"/>').val(pid));
