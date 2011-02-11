@@ -6,7 +6,7 @@
 
 
 #include "header.js"
-#include "jquery.js"
+#include "jquery-1.5.js"
 
 
 // DEFAULT EINSTELLUNGEN
