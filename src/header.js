@@ -17,5 +17,4 @@
 // @include     http://forum.mods.de/bb//thread.php?*
 // @match     http://forum.mods.de/bb/thread.php?*
 // @match     http://forum.mods.de/bb//thread.php?*
-// @run-at    document-end
 // ==/UserScript==
