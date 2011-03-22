@@ -31,7 +31,11 @@ cl  = WINDOW.console ? function(){ WINDOW.console.log.apply( WINDOW.console, arg
 tid = /TID=(\d+)/i.exec( window.location.search)[1],
 jqTBody = (document.evaluate("//tbody[ ./tr[ @username] ]", document, null, 8, null).singleNodeValue),
 qr_row0, qr_row1, qr_row2,
-storage, $, token_newreply, addTextWeiche;
+storage, $, token_newreply, addTextWeiche = function( text){
+    $('#message').val(function(i, old){
+        return old + text;
+    });
+};
 
 #if GREASEMONKEY
 
@@ -42,12 +46,8 @@ storage = { get: function( a,b){
 $= unsafeWindow.jQuery;
 token_newreply = unsafeWindow.token_newreply;
 
-addTextWeiche = function( text){
-    unsafeWindow.addText( text, unsafeWindow.document.forms['newreply']);
-}
-
 if( !$('<div>').is('div') ){
-    // matches selector shim
+    // matches selector
     $.find.matchesSelector = function( node, expr ) {
         try {
             return node.mozMatchesSelector( expr);
@@ -76,12 +76,6 @@ storage = {
 };
 $= window.jQuery;
 token_newreply = /token_newreply\s+=\s+'(\w+)'/i.exec(document.documentElement.innerHTML)[1],
-
-addTextWeiche = function( text){
-    $('#message').text(function(i, old){
-        return old + text;
-    });
-}
 
 #endif
 #ifdef OPERA
