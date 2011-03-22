@@ -46,6 +46,16 @@ addTextWeiche = function( text){
     unsafeWindow.addText( text, unsafeWindow.document.forms['newreply']);
 }
 
+if( !$('<div>').is('div') ){
+    // matches selector shim
+    $.find.matchesSelector = function( node, expr ) {
+        try {
+            return node.mozMatchesSelector( expr);
+        } catch(e){}
+        return $.find(expr, null, null, [node]).length > 0;
+    };
+}
+
 #else
 
 storage = { 
