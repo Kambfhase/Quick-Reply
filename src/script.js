@@ -6,7 +6,7 @@
 
 
 #include "header.js"
-#include "jquery-1.5.js"
+#include "jquery-1.6.js"
 
 
 // DEFAULT EINSTELLUNGEN
@@ -46,15 +46,18 @@ storage = { get: function( a,b){
 $= unsafeWindow.jQuery;
 token_newreply = unsafeWindow.token_newreply;
 
-if( !$('<div>').is('div') ){
-    // matches selector
-    $.find.matchesSelector = function( node, expr ) {
-        try {
-            return node.mozMatchesSelector( expr);
-        } catch(e){}
-        return $.find(expr, null, null, [node]).length > 0;
-    };
-}
+(function($){
+    // include this fix to make jQuery work in Firefox 4 + Greasmonkey or Scriptish
+    // mozMatchesSelector fix by Kambfhase
+    if( !$('<div>').is('div') && $('<div>')[0].mozMatchesSelector){
+        $.find.matchesSelector = function( node, expr ) {
+            try {
+                return node.mozMatchesSelector( expr);
+            } catch(e){}
+            return $.find(expr, null, null, [node]).length > 0;
+        };
+    }
+})(unsafeWindow.jQuery);// you might need to add window or unsafeWindow here
 
 #else
 
