@@ -50,7 +50,7 @@ var optionen = {
     storage = { 
         get: function( a, b){
             var val = GM_getValue( a, b);
-                return typeof val !== typeof b ? JSON.parse( val) : val;
+            return typeof val !== typeof b ? JSON.parse( val) : val;
         },
         set: GM_setValue
     };
