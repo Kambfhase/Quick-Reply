@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Quick-Reply by Kambfhase
 // @author      Kambfhase
-// @description ein Quick-Reply Script für mods.de
+// @description ein Quick-Reply Script fuer mods.de
 // @version     2.7.1
 // @include     http://forum.mods.de/bb/thread.php?*
 // @include     http://forum.mods.de/bb//thread.php?*
@@ -90,7 +90,7 @@ qr_row2 = (
 // EVENT HANDLER
 var clickPosticon = function clickPosticon(){
     if( storage.get('qr_clickable_posticons', optionen.qr_clickable_posticons)){
-        QR.textHinzufügen( this.getAttribute("alt"));
+        QR.textHinzufuegen( this.getAttribute("alt"));
     } else {
         $('#qr_row1').find('#gmqr'+$(this).attr('tg')).click();
         //$(this).prev().click();
@@ -115,7 +115,7 @@ clickEditieren = function(e){
     return false;
 };
 
-// HTML EINFÜGEN & HANDLER REGISTRIEREN & MISC
+// HTML EINFueGEN & HANDLER REGISTRIEREN & MISC
 $('<div/>').append( unescape(qr_row0))
     .append( unescape(qr_row1))
     .append( unescape(qr_row2))
@@ -163,10 +163,10 @@ var Smileys = (function($){
             $('#smileys').hide();
         },
         clickHandler: function( event){
-            // Wird ausgeführt, wenn auf einen Smiley geklickt wird
+            // Wird ausgefuehrt, wenn auf einen Smiley geklickt wird
             var $this = $(event.target);
 
-            QR.textHinzufügen( 
+            QR.textHinzufuegen( 
                 $this.attr('alt') == "src" ? 
                 ('[img]'+$this.attr('src')+'[/img]') :
                 $this.attr('alt')
@@ -213,11 +213,11 @@ var QR = (function($){
             $('#qr_row2').show();
             $('#qr_row1,#qr_row0').hide();
         },
-        textHinzufügen: function( text){
+        textHinzufuegen: function( text){
             unsafeWindow.addText( text, $('#qr_row1 form').get(0));
             this.zeigeEingabe();
         },
-        ladePost: function( pid, callback){
+        ladePost: function( pid){
             // lädt das XML eines Posts
             return $.get("xml/thread.php",{
                 onlyPID : pid,
@@ -245,7 +245,7 @@ var QR = (function($){
                     unescape(data.username)+ // Username
                     '"]'+(fett?"[b]\n":"\n")+text+(fett?"\n[/b]":"\n")+'[/quote]';
 
-                QR.textHinzufügen( text);
+                QR.textHinzufuegen( text);
             });
         },
         editiere: function( pid, href){
@@ -264,7 +264,7 @@ var QR = (function($){
                 $('#qr_row0').hide();
                 $('#qr_row1, #qr_row2').detach().insertAfter( link.closest('tr.color1')).hide();
 
-                // übernimm die Einstellungen vom zu editierenden Post
+                // uebernimm die Einstellungen vom zu editierenden Post
                 qr_edit.show();
                 qr_edit.find('input[name="token"]').val(token);
                 qr_edit.find('textarea[name="message"]').val(code);
@@ -294,7 +294,7 @@ var QR = (function($){
         i=0,
         div=$('<div />'),
     clickCustombuttons = function(){
-        QR.textHinzufügen( $(this).attr('code'));
+        QR.textHinzufuegen( $(this).attr('code'));
     },
     clickMinus = function(){
         $(this).nextUntil('a').andSelf().remove();
