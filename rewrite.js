@@ -88,7 +88,7 @@ qr_row2 = (
 
 
 // EVENT HANDLER
-var clickPosticon = function clickPosticon( e){
+var clickPosticon = function clickPosticon(){
     if( storage.get('qr_clickable_posticons', optionen.qr_clickable_posticons)){
         QR.textHinzufügen( this.getAttribute("alt"));
     } else {
@@ -139,7 +139,7 @@ $('#qr_row1').on("click",'input[type="radio"] + img', clickPosticon);
 
 // EINSTELLUNGEN
 (function($){
-    function clickEinstellung(e){
+    function clickEinstellung(){
         var setting = this.id,
             value = !storage.get( setting, optionen[setting]);
 
@@ -172,7 +172,7 @@ var Smileys = (function($){
                 $this.attr('alt')
             );
         },
-        changeEinstellung: function( event){
+        changeEinstellung: function(){
             if( storage.get('qr_smileys',optionen.qr_smileys) ){
                 Smileys.zeige();
             } else {
@@ -293,17 +293,17 @@ var QR = (function($){
     var obj= storage.get('qr_custombuttons', optionen.qr_custombuttons),
         i=0,
         div=$('<div />'),
-    clickCustombuttons = function(e){
+    clickCustombuttons = function(){
         QR.textHinzufügen( $(this).attr('code'));
     },
-    clickMinus = function(e){
+    clickMinus = function(){
         $(this).nextUntil('a').andSelf().remove();
         changeCustombuttons.apply( $('#qr_custombuttons').get(0));
     },
-    clickPlus = function(e){
+    clickPlus = function(){
         $('#qr_custombuttons').append('<a href="javascript:void 0;">-</a> <label>Bild-URL oder Text: <input type="text" name="url" /></label> <label> Code: <input type="text" name="code" /></label><br />\n');
     },
-    changeCustombuttons = function( e){
+    changeCustombuttons = function(){
         var obj = [];
         $(this).find('input').each(function(i,elem){
             if( i % 2 === 0){
@@ -316,7 +316,7 @@ var QR = (function($){
         storage.set('qr_custombuttons', obj);
         createCustombuttons();
     },
-    createCustombuttons = function(e){
+    createCustombuttons = function(){
         var span = $('#qr_insertcustombuttonshere').empty(),
             obj = storage.get('qr_custombuttons', optionen.qr_custombuttons),
             i = 0;
@@ -352,7 +352,7 @@ var QR = (function($){
 (function(){
     var flag = false;
 
-    $(window).unload(function(e){
+    $(window).unload(function(){
         if( !storage.get('qr_savepost',false)){
             return;
         }
@@ -378,7 +378,7 @@ var QR = (function($){
         }
     });
 
-    $('#qr_row1').submit(function(e){
+    $('#qr_row1').submit(function(){
          flag = true;
     });
 
