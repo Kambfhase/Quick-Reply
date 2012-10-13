@@ -249,10 +249,10 @@ var QR = (function($){
             });
         },
         editiere: function( pid, href){
-            $.when( QR.ladePost(pid), $.get(href).pipe($)).then(function( post, $data){
+            $.when( QR.ladePost(pid), $.get(href).pipe($)).then(function( xml, $data){
                 // wird aufgerufen, wenn beide XHRs angekommen sind.
                
-                var code = post.code,
+                var code = xml.code,
                     token = $data.find('input[name="token"]').val(),
                     link = $('a[href="./editreply.php?PID='+pid+'"]',jqTBody),
                     post = link.closest('tr.color1').prev().find('span.posttext'),
