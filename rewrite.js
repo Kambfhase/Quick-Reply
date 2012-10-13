@@ -222,9 +222,7 @@ var QR = (function($){
             $('#qr_row1,#qr_row0').hide();
         },
         textHinzufügen: function( text){
-            $('#message').val(function(i, old){
-                return old + text;
-            });
+            unsafeWindow.addText( text, $('#qr_row1 form').get(0));
             this.zeigeEingabe();
         },
         ladePost: function( pid, callback){
