@@ -86,6 +86,15 @@ qr_row2 = (
 "%3Ctr%20id%3D%22qr_row2%22%3E%20%20%20%20%3Ctd%3E%20%20%20%20%20%20%20%20%3Ca%20href%3D%22JavaScript%3Avoid%280%29%3B%22%20class%3D%22nu%20wht%20postlink%22%3EQuick-Reply%3C%2Fa%3E%3Cbr%20%2F%3E%20%20%20%20%3C%2Ftd%3E%20%20%20%20%3Ctd%3E%20%20%20%20%20%20%20%20%3Cform%20name%3D%22qr_optionen%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22checkbox%22%20id%3D%22qr_offen%22%20%2F%3EQuick-Reply%20Fenster%20gleich%20%26%23x00f6%3Bffnen%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22checkbox%22%20id%3D%22qr_zitate_fett%22%20%2F%3EZitate%20fett%20machen%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22checkbox%22%20id%3D%22qr_smileys%22%20%2F%3ESmileys%20anzeigen%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22checkbox%22%20id%3D%22qr_clickable_posticons%22%20%2F%3EDie%20Posticons%20als%20Smileys%20missbrauchen%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22checkbox%22%20id%3D%22qr_zitieren%22%20%2F%3Edie%20Zitieren-Links%20ab%26%23x00e4%3Bndern.%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22checkbox%22%20id%3D%22qr_editieren%22%20%2F%3Edie%20Editieren-Links%20ab%26%23x00e4%3Bndern.%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22checkbox%22%20id%3D%22qr_savepost%22%20%2F%3ENicht%20abgeschickte%20Posts%20automatisch%20speichern%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20Customsmileys%20hier%20eintragen.%20Eine%20URL%20pro%20Zeile%21%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Ctextarea%20id%3D%22qr_customsmileys%22%20style%3D%22%20width%3A%20100%25%3B%20height%3A%20100px%3B%22%3E%3C%2Ftextarea%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cbr%20%2F%3E%3Cbr%20%2F%3ECustom%20BB%20Buttons%20hier%20definieren.%20%3Ca%20href%3D%22Javascript%3A%20void%200%3B%22%20id%3D%22qr_custombuttons_add%22%3E%2B%3C%2Fa%3E%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22qr_custombuttons%22%20style%3D%22width%3A100%25%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cbr%20%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20Alle%20Einstellungen%20werden%20automatisch%20gespeichert.%20%20%20%20%20%20%20%20%3C%2Fform%3E%20%20%20%20%3C%2Ftd%3E%3C%2Ftr%3E"
 );
 
+// HTML EINFueGEN & MISC
+$('<div/>').append( unescape(qr_row0))
+    .append( unescape(qr_row1))
+    .append( unescape(qr_row2))
+    .children().insertAfter($(jqTBody).find("tr.color1").last());
+
+$('#qr_row1').find('input[name="TID"]').val(tid);
+$('#qr_row1').find('input[name*="token"]').val(token_newreply);
+
 
 // EVENT HANDLER
 var clickPosticon = function clickPosticon(){
@@ -115,16 +124,6 @@ clickEditieren = function(e){
     return false;
 };
 
-// HTML EINFueGEN & HANDLER REGISTRIEREN & MISC
-$('<div/>').append( unescape(qr_row0))
-    .append( unescape(qr_row1))
-    .append( unescape(qr_row2))
-    .children().insertAfter($(jqTBody).find("tr.color1").last());
-
-
-$('#qr_row1').find('input[name="TID"]').val(tid);
-$('#qr_row1').find('input[name*="token"]').val(token_newreply);
-
 $(jqTBody).on('click','a[href^="newreply.php?PID="]', clickZitieren).on('click','a[href^="./editreply.php?PID="]', clickEditieren);
 
 $(document).keypress(function( e){
@@ -132,6 +131,7 @@ $(document).keypress(function( e){
         QR.zeigeEingabe();
     }
 });
+
 
 // POSTICONS
 $('#qr_row1').on("click",'input[type="radio"] + img', clickPosticon);
