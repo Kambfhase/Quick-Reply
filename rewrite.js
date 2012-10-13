@@ -123,7 +123,7 @@ $('<div/>').append( unescape(qr_row0))
 
 
 $('#qr_row1').find('input[name="TID"]').val(tid);
-$('#qr_row1').find('input[name*=token]').val(token_newreply);
+$('#qr_row1').find('input[name*="token"]').val(token_newreply);
 
 $(jqTBody).on('click','a[href^="newreply.php?PID="]', clickZitieren).on('click','a[href^="./editreply.php?PID="]', clickEditieren);
 
@@ -134,7 +134,7 @@ $(document).keypress(function( e){
 });
 
 // POSTICONS
-$('#qr_row1').delegate("input:radio + img","click", clickPosticon);
+$('#qr_row1').on("click",'input[type="radio"] + img', clickPosticon);
 
 
 // EINSTELLUNGEN
@@ -147,7 +147,7 @@ $('#qr_row1').delegate("input:radio + img","click", clickPosticon);
         storage.set( setting, value);
     }
 
-    $('#qr_row2').delegate('input:checkbox','click', clickEinstellung).find('input').prop("checked", function(){
+    $('#qr_row2').on('click','input[type="checkbox"]', clickEinstellung).find('input').prop("checked", function(){
         return storage.get( this.id, optionen[ this.id]);
     });
 })($);
@@ -330,9 +330,9 @@ var QR = (function($){
     };
 
     $('#qr_custombuttons_add').click( clickPlus);
-    $('#qr_custombuttons').delegate('a','click',clickMinus).bind('change', changeCustombuttons).bind('create',createCustombuttons);
+    $('#qr_custombuttons').on('click','a',clickMinus).bind('change', changeCustombuttons).bind('create',createCustombuttons);
 
-    $('#qr_insertcustombuttonshere').delegate('img[code]','click',clickCustombuttons);
+    $('#qr_insertcustombuttonshere').on('click','img[code]',clickCustombuttons);
 
     for(;i< obj.length; ++i){
         div.append('<a href="javascript:void 0;">-</a> <label> URL: <input type="text" name="url" value="'+unescape(obj[i].url)+'" /></label> <label> Code: <input type="text" name="code" value="'+unescape(obj[i].code)+'" /></label><br />\n');
