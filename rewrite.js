@@ -87,10 +87,10 @@ qr_row2 = (
 );
 
 // HTML EINFueGEN & MISC
-$('<div/>').append( unescape(qr_row0))
+$(document.createDocumentFragment()).append( unescape(qr_row0))
     .append( unescape(qr_row1))
     .append( unescape(qr_row2))
-    .children().insertAfter($(jqTBody).find("tr.color1").last());
+    .insertAfter($(jqTBody).find("tr.color1").last());
 
 $('#qr_row1').find('input[name="TID"]').val(tid);
 $('#qr_row1').find('input[name*="token"]').val(token_newreply);
@@ -181,12 +181,14 @@ var Smileys = (function($){
         },
         customSmileysSpeichern: function(){
             var urls = $(this).val().split('\n'),
-                i=0, $smileys = $('#smileys').children('img[alt="src"]').remove().end();
+                i=0, 
+                $cache = $(unsafeWindow.document.createDocumentFragment());
             for(; i< urls.length; ++i){
                 if( urls[i] && /\S/.test(urls[i])){
-                    $smileys.append('<img src="'+urls[i]+'" alt="src" />\n');
+                    $cache.append('<img src="'+urls[i]+'" alt="src" />\n');
                 }
             }
+            $('#smileys').children('img[alt="src"]').remove().end().append( $cache);
             storage.set( 'qr_customsmileys', JSON.stringify(urls.map(encodeURI)));
         }
     };
@@ -292,7 +294,7 @@ var QR = (function($){
 
     var obj= storage.get('qr_custombuttons', optionen.qr_custombuttons),
         i=0,
-        div=$('<div />'),
+        cache = $(document.createDocumentFragment()),
     clickCustombuttons = function(){
         QR.textHinzufuegen( $(this).attr('code'));
     },
@@ -317,16 +319,18 @@ var QR = (function($){
         createCustombuttons();
     },
     createCustombuttons = function(){
-        var span = $('#qr_insertcustombuttonshere').empty(),
+        var cache = $( document.createDocumentFragment()),
+            span = $('#qr_insertcustombuttonshere').empty(),
             obj = storage.get('qr_custombuttons', optionen.qr_custombuttons),
             i = 0;
         for(; i<obj.length; ++i){
             if( /^http|^www/.test( obj[i].url)){
-                span.append('<img src="'+unescape(obj[i].url)+'" alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
+                cache.append('<img src="'+unescape(obj[i].url)+'" alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
             } else {
-                span.append('<img alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
+                cache.append('<img alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
             }
         }
+        cache.appendTo( span);
     };
 
     $('#qr_custombuttons_add').click( clickPlus);
@@ -335,10 +339,10 @@ var QR = (function($){
     $('#qr_insertcustombuttonshere').on('click','img[code]',clickCustombuttons);
 
     for(;i< obj.length; ++i){
-        div.append('<a href="javascript:void 0;">-</a> <label> URL: <input type="text" name="url" value="'+unescape(obj[i].url)+'" /></label> <label> Code: <input type="text" name="code" value="'+unescape(obj[i].code)+'" /></label><br />\n');
+        cache.append('<a href="javascript:void 0;">-</a> <label> URL: <input type="text" name="url" value="'+unescape(obj[i].url)+'" /></label> <label> Code: <input type="text" name="code" value="'+unescape(obj[i].code)+'" /></label><br />\n');
     }
 
-    div.children().appendTo('#qr_custombuttons');
+    cache.appendTo('#qr_custombuttons');
 
 
     changeCustombuttons.apply( $('#qr_custombuttons').get(0));
