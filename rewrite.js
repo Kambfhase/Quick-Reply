@@ -147,7 +147,7 @@ $('#qr_row1').on("click",'input[type="radio"] + img', clickPosticon);
         storage.set( setting, value);
     }
 
-    $('#qr_row2').on('click','input[type="checkbox"]', clickEinstellung).find('input').prop("checked", function(){
+    $('#qr_row2').on('click','input[type="checkbox"]', clickEinstellung).find('input[type="checkbox"]').prop("checked", function(){
         return storage.get( this.id, optionen[ this.id]);
     });
 })($);
