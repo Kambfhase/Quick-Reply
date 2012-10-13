@@ -45,19 +45,15 @@ var optionen = {
     tid = /TID=(\d+)/i.exec( window.location.search)[1],
     jqTBody = (document.evaluate("//tbody[ ./tr[ @username] ]", document, null, 8, null).singleNodeValue),
     qr_row0, qr_row1, qr_row2,
-    storage, $, token_newreply;
-
-
-
-storage = { 
-    get: function( a,b){
-    var val = GM_getValue( a, b);
-        return typeof val !== typeof b ? JSON.parse( val) : val;
-    },
-    set: GM_setValue
-};
-$= unsafeWindow.jQuery;
-token_newreply = unsafeWindow.token_newreply;
+    $ = unsafeWindow.jQuery, 
+    token_newreply = unsafeWindow.token_newreply,
+    storage = { 
+        get: function( a, b){
+            var val = GM_getValue( a, b);
+                return typeof val !== typeof b ? JSON.parse( val) : val;
+        },
+        set: GM_setValue
+    };
 
 
 // CSS
