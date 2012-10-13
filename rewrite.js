@@ -27,19 +27,17 @@
 
 // DEFAULT EINSTELLUNGEN
 var optionen = {
-        qr_offen : true, // QR gleich offen
+        qr_offen : false, // QR gleich offen
         qr_zitate_fett : true, // Zitate fett machen dh. [b]
         qr_smileys : true, // Smileys anzeigen
         qr_clickable_posticons : false, // Die Posticons wie die Smileys clickbar machen.
         qr_zitieren : true,
         qr_editieren: true,
-        qr_customsmileys : ["http://p0t.kicks-ass.net/balla.gif",
-            "http://p0t.kicks-ass.net/hallocain.gif",
-            "http://p0t.kicks-ass.net/trommel.gif",
-            "http://p0t.kicks-ass.net/naughty.gif"],
+        qr_customsmileys : ["http://h-3.abload.de/img/thumbsuplvqe.gif",
+            "http://www.abload.de/img/icon8lvf.gif"],
         qr_custombuttons : [{
-            "url":"http://abload.de/img/uberkano.png",
-            "code":"[url=steam://connect/93.190.68.179:27015][img]http://www.abload.de/img/uber2fv6e.png[/img][/url]"
+            "url":"ZOMG",
+            "code":"[img]http://h8.abload.de/img/omgonozlhg6.gif[/img]"
         }],
         qr_savepost: false
     },
@@ -123,20 +121,9 @@ clickEditieren = function(e){
     QR.editiere( /(\d+)$/.exec($(this).attr('href'))[1], $(this).attr('href'));
 
     return false;
-},
-changeCustomsmiley = function(e){
-    var urls = $(this).val().split('\n'),
-        i=0, $smileys = $('#smileys').children('img[alt="src"]').remove().end();
-    for(; i< urls.length; ++i){
-        if( urls[i] && /\S/.test(urls[i])){
-            $smileys.append('<img src="'+urls[i]+'" alt="src" />\n');
-        }
-    }
-    storage.set( 'qr_customsmileys', JSON.stringify(urls.map(encodeURI)));
 };
 
 // HTML EINFÜGEN & HANDLER REGISTRIEREN & MISC
-
 $('<div/>').append( unescape(qr_row0))
     .append( unescape(qr_row1))
     .append( unescape(qr_row2))
@@ -146,11 +133,7 @@ $('<div/>').append( unescape(qr_row0))
 $('#qr_row1').find('input[name="TID"]').val(tid);
 $('#qr_row1').find('input[name*=token]').val(token_newreply);
 
-$(jqTBody).on('click','a[href^="newreply.php?PID="]', clickZitieren).delegate('a[href^="./editreply.php?PID="]','click', clickEditieren);
-
-$('#qr_row0, #qr_row2').find('a:first').click(function(e){
-    QR.zeigeEingabe();
-});
+$(jqTBody).on('click','a[href^="newreply.php?PID="]', clickZitieren).on('click','a[href^="./editreply.php?PID="]', clickEditieren);
 
 $(document).keypress(function( e){
     if( e.which === 113 && e.altKey){
@@ -159,14 +142,11 @@ $(document).keypress(function( e){
 });
 
 // POSTICONS
-$('#qr_row1').delegate("input:radio + img","click", clickPosticon).find('a:first').click(function(e){
-    QR.zeigeOptionen();
-});
+$('#qr_row1').delegate("input:radio + img","click", clickPosticon);
 
 
 // EINSTELLUNGEN
 (function($){
-
     function clickEinstellung(e){
         var setting = this.id,
             value = !storage.get( setting, optionen[setting]);
@@ -179,11 +159,6 @@ $('#qr_row1').delegate("input:radio + img","click", clickPosticon).find('a:first
         return storage.get( this.id, optionen[ this.id]);
     });
 })($);
-
-// CUSTOM SMILEYS
-$('#qr_customsmileys').change(changeCustomsmiley).val(
-    storage.get('qr_customsmileys',optionen.qr_customsmileys).map(unescape).join('\n')
-).change();
 
 
 // SMILEYS
@@ -211,11 +186,25 @@ var Smileys = (function($){
             } else {
                 Smileys.verstecke();
             }
+        },
+        customSmileysSpeichern: function(){
+            var urls = $(this).val().split('\n'),
+                i=0, $smileys = $('#smileys').children('img[alt="src"]').remove().end();
+            for(; i< urls.length; ++i){
+                if( urls[i] && /\S/.test(urls[i])){
+                    $smileys.append('<img src="'+urls[i]+'" alt="src" />\n');
+                }
+            }
+            storage.set( 'qr_customsmileys', JSON.stringify(urls.map(encodeURI)));
         }
     };
 
     $('#smileys').on("click","img[alt]", Smileys.clickHandler);
     $('#qr_smileys').change(Smileys.changeEinstellung);
+
+    $('#qr_customsmileys').change(Smileys.customSmileysSpeichern).val(
+        storage.get('qr_customsmileys',optionen.qr_customsmileys).map(unescape).join('\n')
+    ).change();
 
     return Smileys;
 })($);
@@ -240,8 +229,9 @@ var QR = (function($){
         },
         ladePost: function( pid, callback){
             // lädt das XML eines Posts
-            return $.ajax({
-                url: "xml/thread.php?onlyPID="+ pid+"&TID="+tid
+            return $.get("xml/thread.php",{
+                onlyPID : pid,
+                TID: tid
             }).pipe(function( data){
                 // filtere den Username und Posts aus dem XML
                 return {
@@ -269,21 +259,23 @@ var QR = (function($){
             });
         },
         editiere: function( pid, href){
-            var $data, code;
-
-            function weiter(){
+            $.when( QR.ladePost(pid), $.get(href).pipe($)).then(function( post, $data){
                 // wird aufgerufen, wenn beide XHRs angekommen sind.
-                
-                var token = $data.find('input[name="token"]').val(),
+               
+                var code = post.code,
+                    token = $data.find('input[name="token"]').val(),
                     link = $('a[href="./editreply.php?PID='+pid+'"]',jqTBody),
                     post = link.closest('tr.color1').prev().find('span.posttext'),
                     icon = post.closest('tr').prev().find('img'),
                     title = $data.find('input[name="edit_title"]').val(),
-                    qr_edit = $('#qr_row1').show();
+                    qr_edit = $('#qr_row1');
 
+                // verschiebe die Eingabe
                 $('#qr_row0').hide();
                 $('#qr_row1, #qr_row2').detach().insertAfter( link.closest('tr.color1')).hide();
 
+                // übernimm die Einstellungen vom zu editierenden Post
+                qr_edit.show();
                 qr_edit.find('input[name="token"]').val(token);
                 qr_edit.find('textarea[name="message"]').val(code);
                 qr_edit.find('form').attr('action', "editreply.php").append($('<input type="hidden" name="PID"/>').val(pid));
@@ -294,88 +286,74 @@ var QR = (function($){
                     $(document.querySelectorAll('#qr_row1 > td:last-child img[src*="'+ icon.attr('src').replace(/(\/|\.)/g,"\\$1") +'"]')).prev().attr('checked','checked');
                     $('#gmqr0').removeAttr('checked');
                 }
-            }
-
-            var A = $.ajax({
-                url: "xml/thread.php?onlyPID="+ pid +"&TID="+tid,
-                success: function( data){
-                    code = data.querySelector("content").textContent;
-                }
             });
-
-            var B = $.get(
-                href,
-                function( data){
-                    $data = $(data);
-                }
-            );
-
-            $.when( A, B).then( weiter);
         }
     };
+
+    $('#qr_row1').find('a:first').click( QR.zeigeOptionen);
+    $('#qr_row0, #qr_row2').find('a:first').click( QR.zeigeEingabe);
 
     return QR;
 })($);
 
 
 // CUSTOM BUTTONS
+(function($){
 
-(function(){
+    var obj= storage.get('qr_custombuttons', optionen.qr_custombuttons),
+        i=0,
+        div=$('<div />'),
+    clickCustombuttons = function(e){
+        addTextWeiche( $(this).attr('code'));
+    },
+    clickMinus = function(e){
+        $(this).nextUntil('a').andSelf().remove();
+        changeCustombuttons.apply( $('#qr_custombuttons').get(0));
+    },
+    clickPlus = function(e){
+        $('#qr_custombuttons').append('<a href="javascript:void 0;">-</a> <label>Bild-URL oder Text: <input type="text" name="url" /></label> <label> Code: <input type="text" name="code" /></label><br />\n');
+    },
+    changeCustombuttons = function( e){
+        var obj = [];
+        $(this).find('input').each(function(i,elem){
+            if( i % 2 === 0){
+                obj[i/2] = {"url": escape($(elem).val()) || ""};
+            } else {
+                obj[(i-1)/2].code = escape($(elem).val()) || "";
+            }
+        });
+        obj = JSON.stringify( obj);
+        storage.set('qr_custombuttons', obj);
+        createCustombuttons();
+    },
+    createCustombuttons = function(e){
+        var span = $('#qr_insertcustombuttonshere').empty(),
+            obj = storage.get('qr_custombuttons', optionen.qr_custombuttons),
+            i = 0;
+        for(; i<obj.length; ++i){
+            if( /^http|^www/.test( obj[i].url)){
+                span.append('<img src="'+unescape(obj[i].url)+'" alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
+            } else {
+                span.append('<img alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
+            }
+        }
+    };
 
-var obj= storage.get('qr_custombuttons', optionen.qr_custombuttons),
-    i=0,
-    div=$('<div />'),
-clickCustombuttons = function(e){
-    addTextWeiche( $(this).attr('code'));
-},
-clickMinus = function(e){
-    $(this).nextUntil('a').andSelf().remove();
-    changeCustombuttons.apply( $('#qr_custombuttons').get(0));
-},
-clickPlus = function(e){
-    $('#qr_custombuttons').append('<a href="javascript:void 0;">-</a> <label>URL: <input type="text" name="url" /></label> <label> Code: <input type="text" name="code" /></label><br />\n');
-},
-changeCustombuttons = function( e){
-    var obj = [];
-    $(this).find('input').each(function(i,elem){
-        if( i % 2 === 0){
-            obj[i/2] = {"url": escape($(elem).val()) || ""};
-        } else {
-            obj[(i-1)/2].code = escape($(elem).val()) || "";
-        }
-    });
-    obj = JSON.stringify( obj);
-    storage.set('qr_custombuttons', obj);
-    createCustombuttons();
-},
-createCustombuttons = function(e){
-    var span = $('#qr_insertcustombuttonshere').empty(),
-        obj = storage.get('qr_custombuttons', optionen.qr_custombuttons),
-        i = 0;
-    for(; i<obj.length; ++i){
-        if( /^http|^www/.test( obj[i].url)){
-            span.append('<img src="'+unescape(obj[i].url)+'" alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
-        } else {
-            span.append('<img alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
-        }
+    $('#qr_custombuttons_add').click( clickPlus);
+    $('#qr_custombuttons').delegate('a','click',clickMinus).bind('change', changeCustombuttons).bind('create',createCustombuttons);
+
+    $('#qr_insertcustombuttonshere').delegate('img[code]','click',clickCustombuttons);
+
+    for(;i< obj.length; ++i){
+        div.append('<a href="javascript:void 0;">-</a> <label> URL: <input type="text" name="url" value="'+unescape(obj[i].url)+'" /></label> <label> Code: <input type="text" name="code" value="'+unescape(obj[i].code)+'" /></label><br />\n');
     }
-};
 
-$('#qr_custombuttons_add').click( clickPlus);
-$('#qr_custombuttons').delegate('a','click',clickMinus).bind('change', changeCustombuttons).bind('create',createCustombuttons);
-
-$('#qr_insertcustombuttonshere').delegate('img[code]','click',clickCustombuttons);
-
-for(;i< obj.length; ++i){
-    div.append('<a href="javascript:void 0;">-</a> <label> URL: <input type="text" name="url" value="'+unescape(obj[i].url)+'" /></label> <label> Code: <input type="text" name="code" value="'+unescape(obj[i].code)+'" /></label><br />\n');
-}
-
-div.children().appendTo('#qr_custombuttons');
+    div.children().appendTo('#qr_custombuttons');
 
 
-changeCustombuttons.apply( $('#qr_custombuttons').get(0));
+    changeCustombuttons.apply( $('#qr_custombuttons').get(0));
 
-})();
+})($);
 
 
 
