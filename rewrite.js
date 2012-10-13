@@ -45,11 +45,7 @@ var optionen = {
     tid = /TID=(\d+)/i.exec( window.location.search)[1],
     jqTBody = (document.evaluate("//tbody[ ./tr[ @username] ]", document, null, 8, null).singleNodeValue),
     qr_row0, qr_row1, qr_row2,
-    storage, $, token_newreply, addTextWeiche = function( text){
-        $('#message').val(function(i, old){
-            return old + text;
-        });
-    };
+    storage, $, token_newreply;
 
 
 
@@ -98,7 +94,7 @@ qr_row2 = (
 // EVENT HANDLER
 var clickPosticon = function clickPosticon( e){
     if( storage.get('qr_clickable_posticons', optionen.qr_clickable_posticons)){
-        addTextWeiche( this.getAttribute("alt"));
+        QR.textHinzufügen( this.getAttribute("alt"));
     } else {
         $('#qr_row1').find('#gmqr'+$(this).attr('tg')).click();
         //$(this).prev().click();
@@ -302,7 +298,7 @@ var QR = (function($){
         i=0,
         div=$('<div />'),
     clickCustombuttons = function(e){
-        addTextWeiche( $(this).attr('code'));
+        QR.textHinzufügen( $(this).attr('code'));
     },
     clickMinus = function(e){
         $(this).nextUntil('a').andSelf().remove();
