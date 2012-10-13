@@ -119,7 +119,7 @@ clickEditieren = function(e){
 $('<div/>').append( unescape(qr_row0))
     .append( unescape(qr_row1))
     .append( unescape(qr_row2))
-    .children().insertAfter($("tr.color1:last", jqTBody));
+    .children().insertAfter($(jqTBody).find("tr.color1").last());
 
 
 $('#qr_row1').find('input[name="TID"]').val(tid);
@@ -254,7 +254,7 @@ var QR = (function($){
                
                 var code = xml.code,
                     token = $data.find('input[name="token"]').val(),
-                    link = $('a[href="./editreply.php?PID='+pid+'"]',jqTBody),
+                    link = $(jqTBody).find('a[href="./editreply.php?PID='+pid+'"]'),
                     post = link.closest('tr.color1').prev().find('span.posttext'),
                     icon = post.closest('tr').prev().find('img'),
                     title = $data.find('input[name="edit_title"]').val(),
