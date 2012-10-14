@@ -127,7 +127,8 @@ clickEditieren = function(e){
 $(jqTBody).on('click','a[href^="newreply.php?PID="]', clickZitieren).on('click','a[href^="./editreply.php?PID="]', clickEditieren);
 
 $(document).keypress(function( e){
-    if( e.which === 113 && e.altKey){
+    // Alt + Q öffnet das QR
+    if( e.which === 'q'.charCodeAt(0) && e.altKey){
         QR.zeigeEingabe();
     }
 });
