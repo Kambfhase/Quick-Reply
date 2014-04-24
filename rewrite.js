@@ -16,50 +16,50 @@ var window = unsafeWindow;
 }}function ln(e,t,n,r){var i={},o=e===on;function a(s){var u;return i[s]=!0,x.each(e[s]||[],function(e,s){var l=s(t,n,r);return"string"!=typeof l||o||i[l]?o?!(u=l):undefined:(t.dataTypes.unshift(l),a(l),!1)}),u}return a(t.dataTypes[0])||!i["*"]&&a("*")}function cn(e,t){var n,r,i=x.ajaxSettings.flatOptions||{};for(n in t)t[n]!==undefined&&((i[n]?e:r||(r={}))[n]=t[n]);return r&&x.extend(!0,e,r),e}x.fn.load=function(e,t,n){if("string"!=typeof e&&nn)return nn.apply(this,arguments);var r,i,o,a=this,s=e.indexOf(" ");return s>=0&&(r=e.slice(s),e=e.slice(0,s)),x.isFunction(t)?(n=t,t=undefined):t&&"object"==typeof t&&(i="POST"),a.length>0&&x.ajax({url:e,type:i,dataType:"html",data:t}).done(function(e){o=arguments,a.html(r?x("<div>").append(x.parseHTML(e)).find(r):e)}).complete(n&&function(e,t){a.each(n,o||[e.responseText,t,e])}),this},x.each(["ajaxStart","ajaxStop","ajaxComplete","ajaxError","ajaxSuccess","ajaxSend"],function(e,t){x.fn[t]=function(e){return this.on(t,e)}}),x.extend({active:0,lastModified:{},etag:{},ajaxSettings:{url:Ut,type:"GET",isLocal:Kt.test(Xt[1]),global:!0,processData:!0,async:!0,contentType:"application/x-www-form-urlencoded; charset=UTF-8",accepts:{"*":an,text:"text/plain",html:"text/html",xml:"application/xml, text/xml",json:"application/json, text/javascript"},contents:{xml:/xml/,html:/html/,json:/json/},responseFields:{xml:"responseXML",text:"responseText",json:"responseJSON"},converters:{"* text":String,"text html":!0,"text json":x.parseJSON,"text xml":x.parseXML},flatOptions:{url:!0,context:!0}},ajaxSetup:function(e,t){return t?cn(cn(e,x.ajaxSettings),t):cn(x.ajaxSettings,e)},ajaxPrefilter:un(rn),ajaxTransport:un(on),ajax:function(e,t){"object"==typeof e&&(t=e,e=undefined),t=t||{};var n,r,i,o,a,s,u,l,c=x.ajaxSetup({},t),p=c.context||c,f=c.context&&(p.nodeType||p.jquery)?x(p):x.event,d=x.Deferred(),h=x.Callbacks("once memory"),g=c.statusCode||{},m={},y={},v=0,b="canceled",T={readyState:0,getResponseHeader:function(e){var t;if(2===v){if(!o){o={};while(t=Qt.exec(i))o[t[1].toLowerCase()]=t[2]}t=o[e.toLowerCase()]}return null==t?null:t},getAllResponseHeaders:function(){return 2===v?i:null},setRequestHeader:function(e,t){var n=e.toLowerCase();return v||(e=y[n]=y[n]||e,m[e]=t),this},overrideMimeType:function(e){return v||(c.mimeType=e),this},statusCode:function(e){var t;if(e)if(2>v)for(t in e)g[t]=[g[t],e[t]];else T.always(e[T.status]);return this},abort:function(e){var t=e||b;return n&&n.abort(t),N(0,t),this}};if(d.promise(T).complete=h.add,T.success=T.done,T.error=T.fail,c.url=((e||c.url||Ut)+"").replace(Yt,"").replace(en,Xt[1]+"//"),c.type=t.method||t.type||c.method||c.type,c.dataTypes=x.trim(c.dataType||"*").toLowerCase().match(w)||[""],null==c.crossDomain&&(s=tn.exec(c.url.toLowerCase()),c.crossDomain=!(!s||s[1]===Xt[1]&&s[2]===Xt[2]&&(s[3]||("http:"===s[1]?"80":"443"))===(Xt[3]||("http:"===Xt[1]?"80":"443")))),c.data&&c.processData&&"string"!=typeof c.data&&(c.data=x.param(c.data,c.traditional)),ln(rn,c,t,T),2===v)return T;u=c.global,u&&0===x.active++&&x.event.trigger("ajaxStart"),c.type=c.type.toUpperCase(),c.hasContent=!Zt.test(c.type),r=c.url,c.hasContent||(c.data&&(r=c.url+=(Gt.test(r)?"&":"?")+c.data,delete c.data),c.cache===!1&&(c.url=Jt.test(r)?r.replace(Jt,"$1_="+Vt++):r+(Gt.test(r)?"&":"?")+"_="+Vt++)),c.ifModified&&(x.lastModified[r]&&T.setRequestHeader("If-Modified-Since",x.lastModified[r]),x.etag[r]&&T.setRequestHeader("If-None-Match",x.etag[r])),(c.data&&c.hasContent&&c.contentType!==!1||t.contentType)&&T.setRequestHeader("Content-Type",c.contentType),T.setRequestHeader("Accept",c.dataTypes[0]&&c.accepts[c.dataTypes[0]]?c.accepts[c.dataTypes[0]]+("*"!==c.dataTypes[0]?", "+an+"; q=0.01":""):c.accepts["*"]);for(l in c.headers)T.setRequestHeader(l,c.headers[l]);if(c.beforeSend&&(c.beforeSend.call(p,T,c)===!1||2===v))return T.abort();b="abort";for(l in{success:1,error:1,complete:1})T[l](c[l]);if(n=ln(on,c,t,T)){T.readyState=1,u&&f.trigger("ajaxSend",[T,c]),c.async&&c.timeout>0&&(a=setTimeout(function(){T.abort("timeout")},c.timeout));try{v=1,n.send(m,N)}catch(C){if(!(2>v))throw C;N(-1,C)}}else N(-1,"No Transport");function N(e,t,o,s){var l,m,y,b,w,C=t;2!==v&&(v=2,a&&clearTimeout(a),n=undefined,i=s||"",T.readyState=e>0?4:0,l=e>=200&&300>e||304===e,o&&(b=pn(c,T,o)),b=fn(c,b,T,l),l?(c.ifModified&&(w=T.getResponseHeader("Last-Modified"),w&&(x.lastModified[r]=w),w=T.getResponseHeader("etag"),w&&(x.etag[r]=w)),204===e||"HEAD"===c.type?C="nocontent":304===e?C="notmodified":(C=b.state,m=b.data,y=b.error,l=!y)):(y=C,(e||!C)&&(C="error",0>e&&(e=0))),T.status=e,T.statusText=(t||C)+"",l?d.resolveWith(p,[m,C,T]):d.rejectWith(p,[T,C,y]),T.statusCode(g),g=undefined,u&&f.trigger(l?"ajaxSuccess":"ajaxError",[T,c,l?m:y]),h.fireWith(p,[T,C]),u&&(f.trigger("ajaxComplete",[T,c]),--x.active||x.event.trigger("ajaxStop")))}return T},getJSON:function(e,t,n){return x.get(e,t,n,"json")},getScript:function(e,t){return x.get(e,undefined,t,"script")}}),x.each(["get","post"],function(e,t){x[t]=function(e,n,r,i){return x.isFunction(n)&&(i=i||r,r=n,n=undefined),x.ajax({url:e,type:t,dataType:i,data:n,success:r})}});function pn(e,t,n){var r,i,o,a,s=e.contents,u=e.dataTypes;while("*"===u[0])u.shift(),r===undefined&&(r=e.mimeType||t.getResponseHeader("Content-Type"));if(r)for(i in s)if(s[i]&&s[i].test(r)){u.unshift(i);break}if(u[0]in n)o=u[0];else{for(i in n){if(!u[0]||e.converters[i+" "+u[0]]){o=i;break}a||(a=i)}o=o||a}return o?(o!==u[0]&&u.unshift(o),n[o]):undefined}function fn(e,t,n,r){var i,o,a,s,u,l={},c=e.dataTypes.slice();if(c[1])for(a in e.converters)l[a.toLowerCase()]=e.converters[a];o=c.shift();while(o)if(e.responseFields[o]&&(n[e.responseFields[o]]=t),!u&&r&&e.dataFilter&&(t=e.dataFilter(t,e.dataType)),u=o,o=c.shift())if("*"===o)o=u;else if("*"!==u&&u!==o){if(a=l[u+" "+o]||l["* "+o],!a)for(i in l)if(s=i.split(" "),s[1]===o&&(a=l[u+" "+s[0]]||l["* "+s[0]])){a===!0?a=l[i]:l[i]!==!0&&(o=s[0],c.unshift(s[1]));break}if(a!==!0)if(a&&e["throws"])t=a(t);else try{t=a(t)}catch(p){return{state:"parsererror",error:a?p:"No conversion from "+u+" to "+o}}}return{state:"success",data:t}}x.ajaxSetup({accepts:{script:"text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"},contents:{script:/(?:java|ecma)script/},converters:{"text script":function(e){return x.globalEval(e),e}}}),x.ajaxPrefilter("script",function(e){e.cache===undefined&&(e.cache=!1),e.crossDomain&&(e.type="GET")}),x.ajaxTransport("script",function(e){if(e.crossDomain){var t,n;return{send:function(r,i){t=x("<script>").prop({async:!0,charset:e.scriptCharset,src:e.url}).on("load error",n=function(e){t.remove(),n=null,e&&i("error"===e.type?404:200,e.type)}),o.head.appendChild(t[0])},abort:function(){n&&n()}}}});var dn=[],hn=/(=)\?(?=&|$)|\?\?/;x.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var e=dn.pop()||x.expando+"_"+Vt++;return this[e]=!0,e}}),x.ajaxPrefilter("json jsonp",function(t,n,r){var i,o,a,s=t.jsonp!==!1&&(hn.test(t.url)?"url":"string"==typeof t.data&&!(t.contentType||"").indexOf("application/x-www-form-urlencoded")&&hn.test(t.data)&&"data");return s||"jsonp"===t.dataTypes[0]?(i=t.jsonpCallback=x.isFunction(t.jsonpCallback)?t.jsonpCallback():t.jsonpCallback,s?t[s]=t[s].replace(hn,"$1"+i):t.jsonp!==!1&&(t.url+=(Gt.test(t.url)?"&":"?")+t.jsonp+"="+i),t.converters["script json"]=function(){return a||x.error(i+" was not called"),a[0]},t.dataTypes[0]="json",o=e[i],e[i]=function(){a=arguments},r.always(function(){e[i]=o,t[i]&&(t.jsonpCallback=n.jsonpCallback,dn.push(i)),a&&x.isFunction(o)&&o(a[0]),a=o=undefined}),"script"):undefined}),x.ajaxSettings.xhr=function(){try{return new XMLHttpRequest}catch(e){}};var gn=x.ajaxSettings.xhr(),mn={0:200,1223:204},yn=0,vn={};e.ActiveXObject&&x(e).on("unload",function(){for(var e in vn)vn[e]();vn=undefined}),x.support.cors=!!gn&&"withCredentials"in gn,x.support.ajax=gn=!!gn,x.ajaxTransport(function(e){var t;return x.support.cors||gn&&!e.crossDomain?{send:function(n,r){var i,o,a=e.xhr();if(a.open(e.type,e.url,e.async,e.username,e.password),e.xhrFields)for(i in e.xhrFields)a[i]=e.xhrFields[i];e.mimeType&&a.overrideMimeType&&a.overrideMimeType(e.mimeType),e.crossDomain||n["X-Requested-With"]||(n["X-Requested-With"]="XMLHttpRequest");for(i in n)a.setRequestHeader(i,n[i]);t=function(e){return function(){t&&(delete vn[o],t=a.onload=a.onerror=null,"abort"===e?a.abort():"error"===e?r(a.status||404,a.statusText):r(mn[a.status]||a.status,a.statusText,"string"==typeof a.responseText?{text:a.responseText}:undefined,a.getAllResponseHeaders()))}},a.onload=t(),a.onerror=t("error"),t=vn[o=yn++]=t("abort"),a.send(e.hasContent&&e.data||null)},abort:function(){t&&t()}}:undefined}),"object"==typeof module&&module&&"object"==typeof module.exports?module.exports=x:"function"==typeof define&&define.amd&&define("jquery",[],function(){return x}),"object"==typeof e&&"object"==typeof e.document&&(e.jQuery=e.$=x)})(window);
 
 /*(function($){
-    // include this fix to make jQuery work in Firefox 4 + Greasmonkey or Scriptish
-    // mozMatchesSelector fix by Kambfhase
-    if( !$('<div>').is('div') && $('<div>')[0].mozMatchesSelector){
-        $.find.matchesSelector = function( node, expr ) {
-            try {
-                return node.mozMatchesSelector( expr);
-            } catch(e){}
-            return $.find(expr, null, null, [node]).length > 0;
-        };
-    }
+	// include this fix to make jQuery work in Firefox 4 + Greasmonkey or Scriptish
+	// mozMatchesSelector fix by Kambfhase
+	if( !$('<div>').is('div') && $('<div>')[0].mozMatchesSelector){
+		$.find.matchesSelector = function( node, expr ) {
+			try {
+				return node.mozMatchesSelector( expr);
+			} catch(e){}
+			return $.find(expr, null, null, [node]).length > 0;
+		};
+	}
 })(unsafeWindow.jQuery);*/
 
 
 // DEFAULT EINSTELLUNGEN
 var optionen = {
-        qr_offen : false, // QR gleich offen
-        qr_zitate_fett : true, // Zitate fett machen dh. [b]
-        qr_smileys : true, // Smileys anzeigen
-        qr_clickable_posticons : false, // Die Posticons wie die Smileys clickbar machen.
-        qr_zitieren : true,
-        qr_editieren: true,
-        qr_customsmileys : ["http://h-3.abload.de/img/thumbsuplvqe.gif",
-            "http://www.abload.de/img/icon8lvf.gif"],
-        qr_custombuttons : [{
-            "url":"ZOMG",
-            "code":"[img]http://h8.abload.de/img/omgonozlhg6.gif[/img]",
-            "url":"VIDEO",
-            "code":"[video][/video]"
-        }],
-        qr_savepost: false
-    },
-    cl = unsafeWindow.console ? function(){ unsafeWindow.console.log.apply( unsafeWindow.console, arguments); } : GM_log,
-    tid = /TID=(\d+)/i.exec( window.location.search)[1],
-    jqTBody = (document.evaluate("//tbody[ ./tr[ @username] ]", document, null, 8, null).singleNodeValue),
-    qr_row0, qr_row1, qr_row2,
-    $ = unsafeWindow.jQuery, 
-    token_newreply = unsafeWindow.token_newreply,
-    storage = { 
-        get: function( a, b){
-            var val = GM_getValue( a, b);
-            return typeof val !== typeof b ? JSON.parse( val) : val;
-        },
-        set: GM_setValue
-    };
+		qr_offen : false, // QR gleich offen
+		qr_zitate_fett : true, // Zitate fett machen dh. [b]
+		qr_smileys : true, // Smileys anzeigen
+		qr_clickable_posticons : false, // Die Posticons wie die Smileys clickbar machen.
+		qr_zitieren : true,
+		qr_editieren: true,
+		qr_customsmileys : ["http://h-3.abload.de/img/thumbsuplvqe.gif",
+			"http://www.abload.de/img/icon8lvf.gif"],
+		qr_custombuttons : [{
+			"url":"ZOMG",
+			"code":"[img]http://h8.abload.de/img/omgonozlhg6.gif[/img]",
+			"url":"VIDEO",
+			"code":"[video][/video]"
+		}],
+		qr_savepost: false
+	},
+	cl = unsafeWindow.console ? function(){ unsafeWindow.console.log.apply( unsafeWindow.console, arguments); } : GM_log,
+	tid = /TID=(\d+)/i.exec( window.location.search)[1],
+	jqTBody = (document.evaluate("//tbody[ ./tr[ @username] ]", document, null, 8, null).singleNodeValue),
+	qr_row0, qr_row1, qr_row2,
+	$ = unsafeWindow.jQuery, 
+	token_newreply = unsafeWindow.token_newreply,
+	storage = { 
+		get: function( a, b){
+			var val = GM_getValue( a, b);
+			return typeof val !== typeof b ? JSON.parse( val) : val;
+		},
+		set: GM_setValue
+	};
 
 
 // CSS
@@ -107,7 +107,7 @@ GM_addStyle( ((_=>/*
 ( storage.get('qr_smileys', optionen.qr_smileys) ? "" : "#smileys{ display:none}") );
 
 if( !document.evaluate("//a[contains(@href, './quickmod')]", document, null,8,null).singleNodeValue)
-        GM_addStyle( ".iAmMod { display:none;}" );
+		GM_addStyle( ".iAmMod { display:none;}" );
 
 // HTML
 
@@ -275,9 +275,9 @@ qr_row2 = ((_=>/*
 
 // HTML EINFueGEN & MISC
 $(document.createDocumentFragment()).append( unescape(qr_row0))
-    .append( unescape(qr_row1))
-    .append( unescape(qr_row2))
-    .insertAfter($(jqTBody).find("tr.color1").last());
+	.append( unescape(qr_row1))
+	.append( unescape(qr_row2))
+	.insertAfter($(jqTBody).find("tr.color1").last());
 
 $('#qr_row1').find('input[name="TID"]').val(tid);
 $('#qr_row1').find('input[name*="token"]').val(token_newreply);
@@ -285,38 +285,38 @@ $('#qr_row1').find('input[name*="token"]').val(token_newreply);
 
 // EVENT HANDLER
 var clickPosticon = function clickPosticon(){
-    if( storage.get('qr_clickable_posticons', optionen.qr_clickable_posticons)){
-        QR.textHinzufuegen( this.getAttribute("alt"));
-    } else {
-        $('#qr_row1').find('#gmqr'+$(this).attr('tg')).click();
-        //$(this).prev().click();
-    }
+	if( storage.get('qr_clickable_posticons', optionen.qr_clickable_posticons)){
+		QR.textHinzufuegen( this.getAttribute("alt"));
+	} else {
+		$('#qr_row1').find('#gmqr'+$(this).attr('tg')).click();
+		//$(this).prev().click();
+	}
 },
 clickZitieren = function(e){
-    if( e.which !== 1 || !storage.get('qr_zitieren',optionen.qr_zitieren)){
-        return true;
-    }
+	if( e.which !== 1 || !storage.get('qr_zitieren',optionen.qr_zitieren)){
+		return true;
+	}
 
-    QR.zitiere( /(\d+)$/.exec($(this).attr('href'))[1]);
+	QR.zitiere( /(\d+)$/.exec($(this).attr('href'))[1]);
 
-    return false;
+	return false;
 },
 clickEditieren = function(e){
-    if( e.which !== 1 || !storage.get('qr_editieren',optionen.qr_editieren)){
-        return true;
-    }
+	if( e.which !== 1 || !storage.get('qr_editieren',optionen.qr_editieren)){
+		return true;
+	}
 
-    QR.editiere( /(\d+)$/.exec($(this).attr('href'))[1], $(this).attr('href'));
+	QR.editiere( /(\d+)$/.exec($(this).attr('href'))[1], $(this).attr('href'));
 
-    return false;
+	return false;
 };
 
 $(jqTBody).on('click','a[href^="newreply.php?PID="]', clickZitieren).on('click','a[href^="./editreply.php?PID="]', clickEditieren);
 
 $(document).on('keypress',function( e){
-    if( e.which === 113 && e.altKey){
-        QR.zeigeEingabe();
-    }
+	if( e.which === 113 && e.altKey){
+		QR.zeigeEingabe();
+	}
 });
 
 
@@ -326,218 +326,218 @@ $('#qr_row1').find('input[type="radio"] + img').on("click", clickPosticon);
 
 // EINSTELLUNGEN
 (function($){
-    function clickEinstellung(){
-        var setting = this.id,
-            value = !storage.get( setting, optionen[setting]);
+	function clickEinstellung(){
+		var setting = this.id,
+			value = !storage.get( setting, optionen[setting]);
 
-        $(this).prop('checked', value);
-        storage.set( setting, value);
-    }
+		$(this).prop('checked', value);
+		storage.set( setting, value);
+	}
 
-    $('#qr_row2').find('input[type="checkbox"]').prop("checked", function(){
-        return storage.get( this.id, optionen[ this.id]);
-    }).on('click', clickEinstellung);
-    
+	$('#qr_row2').find('input[type="checkbox"]').prop("checked", function(){
+		return storage.get( this.id, optionen[ this.id]);
+	}).on('click', clickEinstellung);
+	
 })($);
 
 
 // SMILEYS
 var Smileys = (function($){
-    var Smileys = {
-        zeige: function(){
-            $('#smileys').show();
-        },
-        verstecke: function(){
-            $('#smileys').hide();
-        },
-        clickHandler: function( event){
-            // Wird ausgefuehrt, wenn auf einen Smiley geklickt wird
-            var $this = $(event.target);
-            if( !$this.is('img[alt]')) return;
+	var Smileys = {
+		zeige: function(){
+			$('#smileys').show();
+		},
+		verstecke: function(){
+			$('#smileys').hide();
+		},
+		clickHandler: function( event){
+			// Wird ausgefuehrt, wenn auf einen Smiley geklickt wird
+			var $this = $(event.target);
+			if( !$this.is('img[alt]')) return;
 
-            QR.textHinzufuegen( 
-                $this.attr('alt') == "src" ? 
-                ('[img]'+$this.attr('src')+'[/img]') :
-                $this.attr('alt')
-            );
-        },
-        changeEinstellung: function(){
-            if( storage.get('qr_smileys',optionen.qr_smileys) ){
-                Smileys.zeige();
-            } else {
-                Smileys.verstecke();
-            }
-        },
-        customSmileysSpeichern: function(){
-            var urls = $(this).val().split('\n'),
-                i=0, 
-                $cache = $(unsafeWindow.document.createDocumentFragment());
-            for(; i< urls.length; ++i){
-                if( urls[i] && /\S/.test(urls[i])){
-                    $cache.append('<img src="'+urls[i]+'" alt="src" />\n');
-                }
-            }
-            $('#smileys').children('img[alt="src"]').remove().end().append( $cache);
-            storage.set( 'qr_customsmileys', JSON.stringify(urls.map(encodeURI)));
-        }
-    };
+			QR.textHinzufuegen( 
+				$this.attr('alt') == "src" ? 
+				('[img]'+$this.attr('src')+'[/img]') :
+				$this.attr('alt')
+			);
+		},
+		changeEinstellung: function(){
+			if( storage.get('qr_smileys',optionen.qr_smileys) ){
+				Smileys.zeige();
+			} else {
+				Smileys.verstecke();
+			}
+		},
+		customSmileysSpeichern: function(){
+			var urls = $(this).val().split('\n'),
+				i=0, 
+				$cache = $(unsafeWindow.document.createDocumentFragment());
+			for(; i< urls.length; ++i){
+				if( urls[i] && /\S/.test(urls[i])){
+					$cache.append('<img src="'+urls[i]+'" alt="src" />\n');
+				}
+			}
+			$('#smileys').children('img[alt="src"]').remove().end().append( $cache);
+			storage.set( 'qr_customsmileys', JSON.stringify(urls.map(encodeURI)));
+		}
+	};
 
-    $('#smileys').on("click", Smileys.clickHandler);
-    
-    $('#qr_smileys').change(Smileys.changeEinstellung);
+	$('#smileys').on("click", Smileys.clickHandler);
+	
+	$('#qr_smileys').change(Smileys.changeEinstellung);
 
-    $('#qr_customsmileys').change(Smileys.customSmileysSpeichern).val(
-        storage.get('qr_customsmileys',optionen.qr_customsmileys).map(unescape).join('\n')
-    ).change();
+	$('#qr_customsmileys').change(Smileys.customSmileysSpeichern).val(
+		storage.get('qr_customsmileys',optionen.qr_customsmileys).map(unescape).join('\n')
+	).change();
 
-    return Smileys;
+	return Smileys;
 })($);
 
 // general Quick-Reply
 var QR = (function($){
-    var QR = {
-        zeigeEingabe: function(){
-            $('#qr_row1').show();
-            $('#qr_row0, #qr_row2').hide();
-            document.getElementById('message').focus();
-        },
-        zeigeOptionen: function(){
-            $('#qr_row2').show();
-            $('#qr_row1,#qr_row0').hide();
-        },
-        textHinzufuegen: function( text){
-            unsafeWindow.addText( text, $('#qr_row1 form').get(0));
-            this.zeigeEingabe();
-        },
-        ladePost: function( pid){
-            // lädt das XML eines Posts
-            return $.get("xml/thread.php",{
-                onlyPID : pid,
-                TID: tid
-            }).pipe(function( data){
-                // filtere den Username und Posts aus dem XML
-                return {
-                    username: data.querySelector("posts user").textContent,
-                    code: data.querySelector("content").textContent
-                };
-            });
-        },
-        zitiere: function( pid){
-            // pid ist die ID des zu zitierenden Posts.
-            var fett = storage.get("qr_zitate_fett", optionen.qr_zitate_fett);
+	var QR = {
+		zeigeEingabe: function(){
+			$('#qr_row1').show();
+			$('#qr_row0, #qr_row2').hide();
+			document.getElementById('message').focus();
+		},
+		zeigeOptionen: function(){
+			$('#qr_row2').show();
+			$('#qr_row1,#qr_row0').hide();
+		},
+		textHinzufuegen: function( text){
+			unsafeWindow.addText( text, $('#qr_row1 form').get(0));
+			this.zeigeEingabe();
+		},
+		ladePost: function( pid){
+			// lädt das XML eines Posts
+			return $.get("xml/thread.php",{
+				onlyPID : pid,
+				TID: tid
+			}).pipe(function( data){
+				// filtere den Username und Posts aus dem XML
+				return {
+					username: data.querySelector("posts user").textContent,
+					code: data.querySelector("content").textContent
+				};
+			});
+		},
+		zitiere: function( pid){
+			// pid ist die ID des zu zitierenden Posts.
+			var fett = storage.get("qr_zitate_fett", optionen.qr_zitate_fett);
 
-            this.ladePost(pid).done(function( data){
-                var text = data.code,
-                    img2url = /\[url=([^\]]+)\]\[img\][^\]]*\[\/img\]\[\/url\]/gi;
+			this.ladePost(pid).done(function( data){
+				var text = data.code,
+					img2url = /\[url=([^\]]+)\]\[img\][^\]]*\[\/img\]\[\/url\]/gi;
 
-                text = text.replace(img2url,"[url]$1[/url]");
-                text = '[quote='+tid+','+
-                    pid+ // PostID
-                    ',"'+
-                    unescape(data.username)+ // Username
-                    '"]'+(fett?"[b]\n":"\n")+text+(fett?"\n[/b]":"\n")+'[/quote]';
+				text = text.replace(img2url,"[url]$1[/url]");
+				text = '[quote='+tid+','+
+					pid+ // PostID
+					',"'+
+					unescape(data.username)+ // Username
+					'"]'+(fett?"[b]\n":"\n")+text+(fett?"\n[/b]":"\n")+'[/quote]';
 
-                QR.textHinzufuegen( text);
-            });
-        },
-        editiere: function( pid, href){
-            $.when( QR.ladePost(pid), $.get(href).pipe(function(arg){
-                return $(arg);
-            })).then(function( xml, $data){
-                // wird aufgerufen, wenn beide XHRs angekommen sind.
-               
-                var code = xml.code,
-                    token = $data.find('input[name="token"]').val(),
-                    link = $(jqTBody).find('a[href="./editreply.php?PID='+pid+'"]'),
-                    post = link.closest('tr.color1').prev().find('span.posttext'),
-                    icon = post.closest('tr').prev().find('img'),
-                    title = $data.find('input[name="edit_title"]').val(),
-                    qr_edit = $('#qr_row1');
+				QR.textHinzufuegen( text);
+			});
+		},
+		editiere: function( pid, href){
+			$.when( QR.ladePost(pid), $.get(href).pipe(function(arg){
+				return $(arg);
+			})).then(function( xml, $data){
+				// wird aufgerufen, wenn beide XHRs angekommen sind.
+			   
+				var code = xml.code,
+					token = $data.find('input[name="token"]').val(),
+					link = $(jqTBody).find('a[href="./editreply.php?PID='+pid+'"]'),
+					post = link.closest('tr.color1').prev().find('span.posttext'),
+					icon = post.closest('tr').prev().find('img'),
+					title = $data.find('input[name="edit_title"]').val(),
+					qr_edit = $('#qr_row1');
 
-                // verschiebe die Eingabe
-                $('#qr_row0').hide();
-                $('#qr_row1, #qr_row2').detach().insertAfter( link.closest('tr.color1')).hide();
+				// verschiebe die Eingabe
+				$('#qr_row0').hide();
+				$('#qr_row1, #qr_row2').detach().insertAfter( link.closest('tr.color1')).hide();
 
-                // uebernimm die Einstellungen vom zu editierenden Post
-                qr_edit.show();
-                qr_edit.find('input[name="token"]').val(token);
-                qr_edit.find('textarea[name="message"]').val(code);
-                qr_edit.find('form').attr('action', "editreply.php").append($('<input type="hidden" name="PID"/>').val(pid));
-                qr_edit.find('input[name="post_icon"]').attr('name','edit_icon');
-                qr_edit.find('input[name="post_title"]').attr('name','edit_title').val(title);
+				// uebernimm die Einstellungen vom zu editierenden Post
+				qr_edit.show();
+				qr_edit.find('input[name="token"]').val(token);
+				qr_edit.find('textarea[name="message"]').val(code);
+				qr_edit.find('form').attr('action', "editreply.php").append($('<input type="hidden" name="PID"/>').val(pid));
+				qr_edit.find('input[name="post_icon"]').attr('name','edit_icon');
+				qr_edit.find('input[name="post_title"]').attr('name','edit_title').val(title);
 
-                if( icon.length){
-                    $(document.querySelectorAll('#qr_row1 > td:last-child img[src*="'+ icon.attr('src').replace(/(\/|\.)/g,"\\$1") +'"]')).prev().attr('checked','checked');
-                    $('#gmqr0').removeAttr('checked');
-                }
-            });
-        }
-    };
+				if( icon.length){
+					$(document.querySelectorAll('#qr_row1 > td:last-child img[src*="'+ icon.attr('src').replace(/(\/|\.)/g,"\\$1") +'"]')).prev().attr('checked','checked');
+					$('#gmqr0').removeAttr('checked');
+				}
+			});
+		}
+	};
 
-    $('#qr_row1').find('a:first').click( QR.zeigeOptionen);
-    $('#qr_row0, #qr_row2').find('a:first').click( QR.zeigeEingabe);
+	$('#qr_row1').find('a:first').click( QR.zeigeOptionen);
+	$('#qr_row0, #qr_row2').find('a:first').click( QR.zeigeEingabe);
 
-    return QR;
+	return QR;
 })($);
 
 
 // CUSTOM BUTTONS
 (function($){
 
-    var obj= storage.get('qr_custombuttons', optionen.qr_custombuttons),
-        i=0,
-        cache = $(document.createDocumentFragment()),
-    clickCustombuttons = function(){
-        QR.textHinzufuegen( $(this).attr('code'));
-    },
-    clickMinus = function(){
-        $(this).nextUntil('a').andSelf().remove();
-        changeCustombuttons.apply( $('#qr_custombuttons').get(0));
-    },
-    clickPlus = function(){
-        $('#qr_custombuttons').append('<a href="javascript:void 0;">-</a> <label>Bild-URL oder Text: <input type="text" name="url" /></label> <label> Code: <input type="text" name="code" /></label><br />\n');
-    },
-    changeCustombuttons = function(){
-        var obj = [];
-        $(this).find('input').each(function(i,elem){
-            if( i % 2 === 0){
-                obj[i/2] = {"url": escape($(elem).val()) || ""};
-            } else {
-                obj[(i-1)/2].code = escape($(elem).val()) || "";
-            }
-        });
-        obj = JSON.stringify( obj);
-        storage.set('qr_custombuttons', obj);
-        createCustombuttons();
-    },
-    createCustombuttons = function(){
-        var cache = $( document.createDocumentFragment()),
-            span = $('#qr_insertcustombuttonshere').empty(),
-            obj = storage.get('qr_custombuttons', optionen.qr_custombuttons),
-            i = 0;
-        for(; i<obj.length; ++i){
-            if( /^http|^www/.test( obj[i].url)){
-                cache.append('<img src="'+unescape(obj[i].url)+'" alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
-            } else {
-                cache.append('<img alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
-            }
-        }
-        cache.appendTo( span);
-    };
+	var obj= storage.get('qr_custombuttons', optionen.qr_custombuttons),
+		i=0,
+		cache = $(document.createDocumentFragment()),
+	clickCustombuttons = function(){
+		QR.textHinzufuegen( $(this).attr('code'));
+	},
+	clickMinus = function(){
+		$(this).nextUntil('a').andSelf().remove();
+		changeCustombuttons.apply( $('#qr_custombuttons').get(0));
+	},
+	clickPlus = function(){
+		$('#qr_custombuttons').append('<a href="javascript:void 0;">-</a> <label>Bild-URL oder Text: <input type="text" name="url" /></label> <label> Code: <input type="text" name="code" /></label><br />\n');
+	},
+	changeCustombuttons = function(){
+		var obj = [];
+		$(this).find('input').each(function(i,elem){
+			if( i % 2 === 0){
+				obj[i/2] = {"url": escape($(elem).val()) || ""};
+			} else {
+				obj[(i-1)/2].code = escape($(elem).val()) || "";
+			}
+		});
+		obj = JSON.stringify( obj);
+		storage.set('qr_custombuttons', obj);
+		createCustombuttons();
+	},
+	createCustombuttons = function(){
+		var cache = $( document.createDocumentFragment()),
+			span = $('#qr_insertcustombuttonshere').empty(),
+			obj = storage.get('qr_custombuttons', optionen.qr_custombuttons),
+			i = 0;
+		for(; i<obj.length; ++i){
+			if( /^http|^www/.test( obj[i].url)){
+				cache.append('<img src="'+unescape(obj[i].url)+'" alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
+			} else {
+				cache.append('<img alt="'+unescape(obj[i].url)+'" code="'+unescape(obj[i].code)+'" />\n');
+			}
+		}
+		cache.appendTo( span);
+	};
 
-    $('#qr_custombuttons_add').click( clickPlus);
-    $('#qr_custombuttons').on('click','a',clickMinus).bind('change', changeCustombuttons).bind('create',createCustombuttons);
+	$('#qr_custombuttons_add').click( clickPlus);
+	$('#qr_custombuttons').on('click','a',clickMinus).bind('change', changeCustombuttons).bind('create',createCustombuttons);
 
-    $('#qr_insertcustombuttonshere').on('click','img[code]',clickCustombuttons);
+	$('#qr_insertcustombuttonshere').on('click','img[code]',clickCustombuttons);
 
-    for(;i< obj.length; ++i){
-        cache.append('<a href="javascript:void 0;">-</a> <label> URL: <input type="text" name="url" value="'+unescape(obj[i].url)+'" /></label> <label> Code: <input type="text" name="code" value="'+unescape(obj[i].code)+'" /></label><br />\n');
-    }
+	for(;i< obj.length; ++i){
+		cache.append('<a href="javascript:void 0;">-</a> <label> URL: <input type="text" name="url" value="'+unescape(obj[i].url)+'" /></label> <label> Code: <input type="text" name="code" value="'+unescape(obj[i].code)+'" /></label><br />\n');
+	}
 
-    cache.appendTo('#qr_custombuttons');
+	cache.appendTo('#qr_custombuttons');
 
 
-    changeCustombuttons.apply( $('#qr_custombuttons').get(0));
+	changeCustombuttons.apply( $('#qr_custombuttons').get(0));
 
 })($);
 
@@ -546,41 +546,41 @@ var QR = (function($){
 
 // SAVE AND LOAD
 (function(){
-    var flag = false;
+	var flag = false;
 
-    $(window).unload(function(){
-        if( !storage.get('qr_savepost',false)){
-            return;
-        }
-        var obj = storage.get('qr_save',{}),
-            neu = $('#message').val() || '';
+	$(window).unload(function(){
+		if( !storage.get('qr_savepost',false)){
+			return;
+		}
+		var obj = storage.get('qr_save',{}),
+			neu = $('#message').val() || '';
 
-        if( flag){
-            // submit, dh. Speicher leeren.
-            if( tid in obj){
-                delete obj[ tid];
-                storage.set('qr_save',JSON.stringify( obj));
-            }
+		if( flag){
+			// submit, dh. Speicher leeren.
+			if( tid in obj){
+				delete obj[ tid];
+				storage.set('qr_save',JSON.stringify( obj));
+			}
 
-        } else {
-            // nicht abgeschickt
-            if( neu && /\S/.test(neu)){
-                obj[tid]=neu;
-                storage.set('qr_save', JSON.stringify( obj));
-            } else {
-                delete obj[ tid];
-                storage.set('qr_save',JSON.stringify( obj));
-            }
-        }
-    });
+		} else {
+			// nicht abgeschickt
+			if( neu && /\S/.test(neu)){
+				obj[tid]=neu;
+				storage.set('qr_save', JSON.stringify( obj));
+			} else {
+				delete obj[ tid];
+				storage.set('qr_save',JSON.stringify( obj));
+			}
+		}
+	});
 
-    $('#qr_row1').submit(function(){
-         flag = true;
-    });
+	$('#qr_row1').submit(function(){
+		 flag = true;
+	});
 
-    if( storage.get('qr_savepost',false)){
-        $('#message').val( storage.get('qr_save',{})[tid] || '' );
-    }
+	if( storage.get('qr_savepost',false)){
+		$('#message').val( storage.get('qr_save',{})[tid] || '' );
+	}
 
 })();
 
