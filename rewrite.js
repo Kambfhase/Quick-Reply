@@ -61,11 +61,47 @@ var optionen = {
 
 
 // CSS
-GM_addStyle( unescape(
+GM_addStyle( ((_=>/*
 
-"%23qr_row1%2C%20%23qr_row2%20%7B%20%20%20%20%20%20%20%20font-size%3A%2010px%3B%20%20%20%20%20%20%20%20font-weight%3A%20bold%3B%20%20%20%20%20%20%20%20background-color%3A%20%23394E63%3B%20%20%20%20%20%20%20%20%20text-align%3A%20center%3B%20%20%20%20%20%20%20%20display%3Anone%3B%7D%23qr_row1%20%3E%20td%2C%20%23qr_row2%20%3E%20td%20%7B%20%20%20%20%20%20%20%20vertical-align%3A%20top%3B%20%20%20%20%20%20%20%20%20padding-top%3A%205px%3B%20%7D%23qr_row1%20%3E%20td%20%2B%20td%2C%20%23qr_row2%20%3E%20td%20%2B%20td%20%7B%20%20%20%20%20%20%20%20padding-left%3A%205px%3B%20%20%20%20%20%20%20%20padding-right%3A%205px%3B%20%20%20%20%20%20%20%20font-size%3A%2010px%3B%20%20%20%20%20%20%20%20text-align%3A%20left%3B%7D%23qr_row0%20%3E%20td%20%7B%20%20%20%20%20%20%20%20%20height%3A%2016px%3B%20%20%20%20%20%20%20%20text-align%3A%20center%3B%20%20%20%20%20%20%20%20font-weight%3A%20bold%3B%20%20%20%20%20%20%20%20background-color%3A%20%23091827%3B%20%20%20%20%20%20%20%20font-size%3A%2010px%3B%20%20%20%20%20%20%20%20color%3A%20%23ddd%3B%20%7D%20%23qr_row1%20img%20%7B%20%20%20%20%20%20%20%20cursor%3A%20pointer%3B%7D%23qr_custombuttons%20input%7B%20%20%20%20width%3A%20300px%3B%7D%23smileys%20%3E%20img%20%7B%20%20%20%20max-height%3A%2030px%3B%20%20%20%20max-width%3A%2030px%3B%7D"
-) +
-( storage.get('qr_offen', optionen.qr_offen) ? "#qr_row0 { display: none} #qr_row1 { display: table-row }" : "")+
+#qr_row1, #qr_row2 {
+	font-size: 10px;
+	font-weight: bold;
+	background-color: #394E63;
+	text-align: center;
+	display:none;
+}
+#qr_row1 > td, #qr_row2 > td {
+	vertical-align: top;
+	padding-top: 5px;
+}
+#qr_row1 > td + td, #qr_row2 > td + td {
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 10px;
+	text-align: left;
+}
+#qr_row0 > td {
+	height: 16px;
+	text-align: center;
+	font-weight: bold;
+	background-color: #091827;
+	font-size: 10px;
+	color: #ddd;
+}
+#qr_row1 img {
+	cursor: pointer;
+}
+
+#qr_custombuttons input{
+	width: 300px;
+}
+#smileys > img {
+	max-height: 30px;
+	max-width: 30px;
+}
+
+*/_)+'').slice(5,-3).trim() +
+( storage.get('qr_offen', optionen.qr_offen) ? "#qr_row0 { display: none #qr_row1 { display: table-row }" : "")+
 ( storage.get('qr_smileys', optionen.qr_smileys) ? "" : "#smileys{ display:none}") );
 
 if( !document.evaluate("//a[contains(@href, './quickmod')]", document, null,8,null).singleNodeValue)
