@@ -105,7 +105,7 @@ GM_addStyle( ((_=>/*
 }
 
 */_)+'').slice(5,-3).trim() +
-( storage.get('qr_offen', optionen.qr_offen) ? "#qr_row0 { display: none #qr_row1 { display: table-row }" : "")+
+( storage.get('qr_offen', optionen.qr_offen) ? "#qr_row0 { display: none } #qr_row1 { display: table-row }" : "")+
 ( storage.get('qr_smileys', optionen.qr_smileys) ? "" : "#smileys{ display:none}") );
 
 if( !document.evaluate("//a[contains(@href, './quickmod')]", document, null,8,null).singleNodeValue)
