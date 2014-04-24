@@ -5,6 +5,10 @@
 // @version     2.7.3
 // @include     http://forum.mods.de/bb/thread.php?*
 // @include     http://forum.mods.de/bb//thread.php?*
+// @grant       GM_getValue
+// @grant       GM_setValue
+// @grant       GM_addStyle
+// @grant       GM_log
 // ==/UserScript==
 
 var window = unsafeWindow;
