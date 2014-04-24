@@ -219,7 +219,8 @@ qr_row1 = ((_=>/*
 				<img src="./img/buttons/img.gif" alt="Bild einf&#x00fc;gen" onclick="makeImage(document.forms['newreply'])" />
 				<img src="./img/buttons/url.gif" alt="Link mit Text" onclick="makeNamedLink(document.forms['newreply'])" />
 				<img src="./img/buttons/url2.gif" alt="Link einf&#x00fc;gen" onclick="makeLink(document.forms['newreply'])" />
-				<img src="./img/buttons/list.gif" alt="Liste einf&#x00fc;gen" onclick="addToList(document.forms['newreply'])" />                <img src="./img/buttons/quote.gif" alt="Quote" onclick="addCode('[quote]', '[/quote]', document.forms['newreply'])" />
+				<img src="./img/buttons/list.gif" alt="Liste einf&#x00fc;gen" onclick="addToList(document.forms['newreply'])" />
+				<img src="./img/buttons/quote.gif" alt="Quote" onclick="addCode('[quote]', '[/quote]', document.forms['newreply'])" />
 				<img src="./img/buttons/spoiler.gif" alt="Spoiler-Warnung fÃ¼r diesen Text einf&#x00fc;gen" onclick="addCode('[spoiler]', '[/spoiler]', document.forms['newreply'])" />
 				<img src="http://abload.de/img/adminxtmh.png" class="iAmMod" onclick="addCode('[mod]','[/mod]',document.forms['newreply'])" />
 			</span>
