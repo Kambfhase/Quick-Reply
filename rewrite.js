@@ -117,7 +117,7 @@ qr_row0 = ((_=>/*
 	<td> <a href="JavaScript:void(0);" class="nu wht postlink">Quick-Reply</a>
 		<br />
 	</td>
-	<td> <a class="nu wht postlink" href="http://userscripts.org/scripts/show/42789">v2.7</a> by <a class="nu wht postlink" href="javascript:void(0);" onclick="openProfile2(1209559)">Kambfhase</a> 
+	<td> <a class="nu wht postlink" href="http://userscripts.org/scripts/show/42789">v2.7</a> by <a class="nu wht postlink" href="javascript:void(0);" onclick="openProfile2(1209559)">Kambfhase</a>
 	</td>
 </tr>
 
@@ -126,8 +126,42 @@ qr_row0 = ((_=>/*
 qr_row1 = ((_=>/*
 
 <tr id="qr_row1">
-	<td> <a class="nu wht postlink" href="javascript:void(0);">Optionen</a> 
-		<br /> <span id="smileys">            <img src="./img/smilies/freaked.gif" alt=":huch:" />             <img src="./img/smilies/icon12.gif" onclick="Javascript:addText(':(',document.forms['newreply']);"/>             <img src="./img/smilies/icon7.gif" onclick="Javascript:addText(':)',document.forms['newreply']);"/>             <img src="./img/smilies/banghead.gif" onclick="Javascript:addText(':bang:',document.forms['newreply']);"/>             <img src="./img/smilies/confused.gif" onclick="Javascript:addText(':confused:',document.forms['newreply']);"/>             <img src="./img/smilies/biggrin.gif" onclick="Javascript:addText(':D',document.forms['newreply']);"/>             <img src="./img/smilies/icon15.gif" onclick="Javascript:addText(':eek:',document.forms['newreply']);"/>             <img src="./img/smilies/icon13.gif" onclick="Javascript:addText(':mad:',document.forms['newreply']);"/>             <img src="./img/smilies/mata.gif" onclick="Javascript:addText(':mata:',document.forms['newreply']);"/>             <img src="./img/smilies/smiley-pillepalle.gif" onclick="Javascript:addText(':moo:',document.forms['newreply']);"/>             <img src="./img/smilies/icon16.gif" onclick="Javascript:addText(':o',document.forms['newreply']);"/>             <img src="./img/smilies/icon2.gif" onclick="Javascript:addText(':P',document.forms['newreply']);"/>             <img src="./img/smilies/icon18.gif" onclick="Javascript:addText(':roll:',document.forms['newreply']);"/>             <img src="./img/smilies/sceptic.gif" onclick="Javascript:addText(':what:',document.forms['newreply']);"/>             <img src="./img/smilies/urgs.gif" onclick="Javascript:addText(':wurgs:',document.forms['newreply']);"/>             <img src="./img/smilies/icon1.gif" onclick="Javascript:addText(':zyklop:',document.forms['newreply']);"/>             <img src="./img/smilies/icon8.gif" onclick="Javascript:addText(':|',document.forms['newreply']);"/>             <img src="./img/smilies/wink.gif" onclick="Javascript:addText(';)',document.forms['newreply']);"/>             <img src="./img/smilies/icon5.gif" onclick="Javascript:addText('^^',document.forms['newreply']);"/>             <img src="./img/icons/thumbsup.gif" onclick="Javascript:addText('[img]./img/icons/thumbsup.gif[/img]',document.forms['newreply']);"/>             <img src="./img/icons/thumbsdown.gif" onclick="Javascript:addText('[img]./img/icons/thumbsdown.gif[/img]',document.forms['newreply']);"/>             <img src="./img/icons/pfeil.gif" onclick="Javascript:addText('[img]./img/icons/pfeil.gif[/img]',document.forms['newreply']);"/>             <img src="./img/icons/icon9.gif" onclick="Javascript:addText('[img]./img/icons/icon9.gif[/img]',document.forms['newreply']);"/>             <img src="./img/icons/icon10.gif" onclick="Javascript:addText('[img]./img/icons/icon10.gif[/img]',document.forms['newreply']);"/>             <img src="./img/icons/icon6.gif" onclick="Javascript:addText('[img]./img/icons/icon6.gif[/img]',document.forms['newreply']);"/>            <img src="./img/icons/icon11.gif" onclick="Javascript:addText('[img]./img/icons/icon11.gif[/img]',document.forms['newreply']);"/>            <img src="./img/icons/icon4.gif" onclick="Javascript:addText('[img]./img/icons/icon4.gif[/img]',document.forms['newreply']);"/>            <img src="./img/icons/icon3.gif"  onclick="Javascript:addText('[img]./img/icons/icon3.gif[/img]',document.forms['newreply']);"/>            <br /><br />        </span> 
+	<td> <a class="nu wht postlink" href="javascript:void(0);">Optionen</a>
+		<br />
+		<span id="smileys">
+			<img src="./img/smilies/freaked.gif" alt=":huch:" />
+			<img src="./img/smilies/icon12.gif" onclick="Javascript:addText(':(',document.forms['newreply']);"/>
+			<img src="./img/smilies/icon7.gif" onclick="Javascript:addText(':)',document.forms['newreply']);"/>
+			<img src="./img/smilies/banghead.gif" onclick="Javascript:addText(':bang:',document.forms['newreply']);"/>
+			<img src="./img/smilies/confused.gif" onclick="Javascript:addText(':confused:',document.forms['newreply']);"/>
+			<img src="./img/smilies/biggrin.gif" onclick="Javascript:addText(':D',document.forms['newreply']);"/>
+			<img src="./img/smilies/icon15.gif" onclick="Javascript:addText(':eek:',document.forms['newreply']);"/>
+			<img src="./img/smilies/icon13.gif" onclick="Javascript:addText(':mad:',document.forms['newreply']);"/>
+			<img src="./img/smilies/mata.gif" onclick="Javascript:addText(':mata:',document.forms['newreply']);"/>
+			<img src="./img/smilies/smiley-pillepalle.gif" onclick="Javascript:addText(':moo:',document.forms['newreply']);"/>
+			<img src="./img/smilies/icon16.gif" onclick="Javascript:addText(':o',document.forms['newreply']);"/>
+			<img src="./img/smilies/icon2.gif" onclick="Javascript:addText(':P',document.forms['newreply']);"/>
+			<img src="./img/smilies/icon18.gif" onclick="Javascript:addText(':roll:',document.forms['newreply']);"/>
+			<img src="./img/smilies/sceptic.gif" onclick="Javascript:addText(':what:',document.forms['newreply']);"/>
+			<img src="./img/smilies/urgs.gif" onclick="Javascript:addText(':wurgs:',document.forms['newreply']);"/>
+			<img src="./img/smilies/icon1.gif" onclick="Javascript:addText(':zyklop:',document.forms['newreply']);"/>
+			<img src="./img/smilies/icon8.gif" onclick="Javascript:addText(':|',document.forms['newreply']);"/>
+			<img src="./img/smilies/wink.gif" onclick="Javascript:addText(';)',document.forms['newreply']);"/>
+			<img src="./img/smilies/icon5.gif" onclick="Javascript:addText('^^',document.forms['newreply']);"/>
+			<img src="./img/icons/thumbsup.gif" onclick="Javascript:addText('[img]./img/icons/thumbsup.gif[/img]',document.forms['newreply']);"/>
+			<img src="./img/icons/thumbsdown.gif" onclick="Javascript:addText('[img]./img/icons/thumbsdown.gif[/img]',document.forms['newreply']);"/>
+			<img src="./img/icons/pfeil.gif" onclick="Javascript:addText('[img]./img/icons/pfeil.gif[/img]',document.forms['newreply']);"/>
+			<img src="./img/icons/icon9.gif" onclick="Javascript:addText('[img]./img/icons/icon9.gif[/img]',document.forms['newreply']);"/>
+			<img src="./img/icons/icon10.gif" onclick="Javascript:addText('[img]./img/icons/icon10.gif[/img]',document.forms['newreply']);"/>
+			<img src="./img/icons/icon6.gif" onclick="Javascript:addText('[img]./img/icons/icon6.gif[/img]',document.forms['newreply']);"/>
+			<img src="./img/icons/icon11.gif" onclick="Javascript:addText('[img]./img/icons/icon11.gif[/img]',document.forms['newreply']);"/>
+			<img src="./img/icons/icon4.gif" onclick="Javascript:addText('[img]./img/icons/icon4.gif[/img]',document.forms['newreply']);"/>
+			<img src="./img/icons/icon3.gif"  onclick="Javascript:addText('[img]./img/icons/icon3.gif[/img]',document.forms['newreply']);"/>
+			<img src="./img/smilies/ugly.gif" onclick="Javascript:addText(':ugly:',document.forms['newreply']);"/>
+			<img src="./img/smilies/tourette.gif" onclick="Javascript:addText(':tourette:',document.forms['newreply']);"/>
+			<br />
+			<br />
+		</span>
 	</td>
 	<td>
 		<form name="newreply" action="newreply.php" method="post">
@@ -189,11 +223,11 @@ qr_row1 = ((_=>/*
 			<textarea name="message" id="message" style=" width: 100%; height: 300px;"></textarea><br />
 			<input type="checkbox" name="post_converturls" checked="checked" />URLs automatisch erkennen<br />
 			<input type="checkbox" name="post_disablebbcode" value="1" />BB-Code deaktivieren<br />
-			<input type="checkbox" name="post_disablesmilies" value="1" />Smilies deaktivieren<br /> 
+			<input type="checkbox" name="post_disablesmilies" value="1" />Smilies deaktivieren<br />
 			<span class="iAmMod">
 				<input type="checkbox" name="reply_close" value="1" /> Thread nach dem Posten schlie&#x00df;en<br />
 				<input type="checkbox" name="post_mark" value="1" /> Text farbig hervorheben?<br />
-			</span> 
+			</span>
 			<input type="submit" name="submit" value="Absenden" style="width: 150px; display: inline; margin-top: 10px;" accesskey="S" />
 			<input type="submit" name="preview" value="Vorschau" style="width: 150px; display: inline; margin-top: 10px;" />
 		</form>
