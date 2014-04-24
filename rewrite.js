@@ -41,7 +41,9 @@ var optionen = {
             "http://www.abload.de/img/icon8lvf.gif"],
         qr_custombuttons : [{
             "url":"ZOMG",
-            "code":"[img]http://h8.abload.de/img/omgonozlhg6.gif[/img]"
+            "code":"[img]http://h8.abload.de/img/omgonozlhg6.gif[/img]",
+            "url":"VIDEO",
+            "code":"[video][/video]"
         }],
         qr_savepost: false
     },
@@ -168,19 +170,31 @@ qr_row1 = ((_=>/*
 				<img alt=":)" tg="37" src="./img/icons/icon7.gif" />
 				<br />
 			</fieldset>
-			<br /> <span id="extra_span_fuer_flying_sheep">                <img src="./img/buttons/fett.gif" alt="Fett" onclick="addCode('[b]', '[/b]', document.forms['newreply'])" />                <img src="./img/buttons/u.gif" alt="Unterstreichen" onclick="addCode('[u]', '[/u]', document.forms['newreply'])" />                <img src="./img/buttons/code.gif" alt="Code einf&#x00fc;gen" onclick="addCode('[code]', '[/code]', document.forms['newreply'])" />                <img src="./img/buttons/kursiv.gif" alt="Kursiv" onclick="addCode('[i]', '[/i]', document.forms['newreply'])" />                <img src="./img/buttons/s.gif" alt="Durchstreichen" onclick="addCode('[s]', '[/s]', document.forms['newreply'])" />                <img src="http://abload.de/img/mono4qf9.png" alt="Monospace" onclick="addCode('[m]', '[/m]', document.forms['newreply'])" />                <img src="./img/buttons/img.gif" alt="Bild einf&#x00fc;gen" onclick="makeImage(document.forms['newreply'])" />                <img src="./img/buttons/url.gif" alt="Link mit Text" onclick="makeNamedLink(document.forms['newreply'])" />                <img src="./img/buttons/url2.gif" alt="Link einf&#x00fc;gen" onclick="makeLink(document.forms['newreply'])" />                <img src="./img/buttons/list.gif" alt="Liste einf&#x00fc;gen" onclick="addToList(document.forms['newreply'])" />                <img src="./img/buttons/quote.gif" alt="Quote" onclick="addCode('[quote]', '[/quote]', document.forms['newreply'])" />                <img src="./img/buttons/spoiler.gif" alt="Spoiler-Warnung fÃ¼r diesen Text einf&#x00fc;gen" onclick="addCode('[spoiler]', '[/spoiler]', document.forms['newreply'])" />                <img src="http://abload.de/img/adminxtmh.png" class="iAmMod" onclick="addCode('[mod]','[/mod]',document.forms['newreply'])" />            </span> <span
-			id="qr_insertcustombuttonshere" />
 			<br />
-			<textarea name="message" id="message" style=" width: 100%; height: 300px;"></textarea>
-			<br />
-			<input type="checkbox" name="post_converturls" checked="checked" />URLs automatisch erkennen
-			<br />
-			<input type="checkbox" name="post_disablebbcode" value="1" />BB-Code deaktivieren
-			<br />
-			<input type="checkbox" name="post_disablesmilies" value="1" />Smilies deaktivieren
-			<br /> <span class="iAmMod"><input type="checkbox" name="reply_close" value="1" /> Thread nach dem Posten schlie&#x00df;en<br />            <input type="checkbox" name="post_mark" value="1" /> Text farbig hervorheben?<br /></span> 
-			<input type="submit" name="submit"
-			value="Absenden" style="width: 150px; display: inline; margin-top: 10px;" accesskey="S" />
+			<span id="extra_span_fuer_flying_sheep">
+				<img src="./img/buttons/fett.gif" alt="Fett" onclick="addCode('[b]', '[/b]', document.forms['newreply'])" />
+				<img src="./img/buttons/u.gif" alt="Unterstreichen" onclick="addCode('[u]', '[/u]', document.forms['newreply'])" />
+				<img src="./img/buttons/code.gif" alt="Code einf&#x00fc;gen" onclick="addCode('[code]', '[/code]', document.forms['newreply'])" />
+				<img src="./img/buttons/kursiv.gif" alt="Kursiv" onclick="addCode('[i]', '[/i]', document.forms['newreply'])" />
+				<img src="./img/buttons/s.gif" alt="Durchstreichen" onclick="addCode('[s]', '[/s]', document.forms['newreply'])" />
+				<img src="http://abload.de/img/mono4qf9.png" alt="Monospace" onclick="addCode('[m]', '[/m]', document.forms['newreply'])" />
+				<img src="./img/buttons/img.gif" alt="Bild einf&#x00fc;gen" onclick="makeImage(document.forms['newreply'])" />
+				<img src="./img/buttons/url.gif" alt="Link mit Text" onclick="makeNamedLink(document.forms['newreply'])" />
+				<img src="./img/buttons/url2.gif" alt="Link einf&#x00fc;gen" onclick="makeLink(document.forms['newreply'])" />
+				<img src="./img/buttons/list.gif" alt="Liste einf&#x00fc;gen" onclick="addToList(document.forms['newreply'])" />                <img src="./img/buttons/quote.gif" alt="Quote" onclick="addCode('[quote]', '[/quote]', document.forms['newreply'])" />
+				<img src="./img/buttons/spoiler.gif" alt="Spoiler-Warnung fÃ¼r diesen Text einf&#x00fc;gen" onclick="addCode('[spoiler]', '[/spoiler]', document.forms['newreply'])" />
+				<img src="http://abload.de/img/adminxtmh.png" class="iAmMod" onclick="addCode('[mod]','[/mod]',document.forms['newreply'])" />
+			</span>
+			<span id="qr_insertcustombuttonshere" /><br />
+			<textarea name="message" id="message" style=" width: 100%; height: 300px;"></textarea><br />
+			<input type="checkbox" name="post_converturls" checked="checked" />URLs automatisch erkennen<br />
+			<input type="checkbox" name="post_disablebbcode" value="1" />BB-Code deaktivieren<br />
+			<input type="checkbox" name="post_disablesmilies" value="1" />Smilies deaktivieren<br /> 
+			<span class="iAmMod">
+				<input type="checkbox" name="reply_close" value="1" /> Thread nach dem Posten schlie&#x00df;en<br />
+				<input type="checkbox" name="post_mark" value="1" /> Text farbig hervorheben?<br />
+			</span> 
+			<input type="submit" name="submit" value="Absenden" style="width: 150px; display: inline; margin-top: 10px;" accesskey="S" />
 			<input type="submit" name="preview" value="Vorschau" style="width: 150px; display: inline; margin-top: 10px;" />
 		</form>
 	</td>
