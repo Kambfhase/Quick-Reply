@@ -210,7 +210,7 @@ qr_row1 = ((_=>/*
 				<img src="./img/buttons/kursiv.gif" alt="Kursiv" onclick="addCode('[i]', '[/i]', document.forms['newreply'])" />
 				<img src="./img/buttons/s.gif" alt="Durchstreichen" onclick="addCode('[s]', '[/s]', document.forms['newreply'])" />
 				<img src="http://abload.de/img/mono4qf9.png" alt="Monospace" onclick="addCode('[m]', '[/m]', document.forms['newreply'])" />
-				<img src="http://abload.de/img/acode3y4xob.gif" alt="Audio" onclick="addCode('[audio]', '[/audio]', document.forms['newreply'])" />
+				<img src="http://abload.de/img/acode3vwotw.gif" alt="Audio" onclick="addCode('[audio]', '[/audio]', document.forms['newreply'])" />
 				<img src="http://abload.de/img/vcode3l2y6e.gif" alt="Video" onclick="addCode('[video]', '[/video]', document.forms['newreply'])" />
 				<img src="./img/buttons/img.gif" alt="Bild einf&#x00fc;gen" onclick="makeImage(document.forms['newreply'])" />
 				<img src="./img/buttons/url.gif" alt="Link mit Text" onclick="makeNamedLink(document.forms['newreply'])" />
