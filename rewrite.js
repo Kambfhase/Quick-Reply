@@ -152,9 +152,9 @@ qr_row1 = ((_=>/*
 			<img src="./img/icons/icon9.gif" onclick="Javascript:addText('[img]./img/icons/icon9.gif[/img]',document.forms['newreply']);"/>
 			<img src="./img/icons/icon10.gif" onclick="Javascript:addText('[img]./img/icons/icon10.gif[/img]',document.forms['newreply']);"/>
 			<img src="./img/icons/icon6.gif" onclick="Javascript:addText('[img]./img/icons/icon6.gif[/img]',document.forms['newreply']);"/>
-			<img src="./img/icons/icon11.gif" onclick="Javascript:addText('[img]./img/icons/icon11.gif[/img]',document.forms['newreply']);"/>
-			<img src="./img/icons/icon4.gif" onclick="Javascript:addText('[img]./img/icons/icon4.gif[/img]',document.forms['newreply']);"/>
-			<img src="./img/icons/icon3.gif"  onclick="Javascript:addText('[img]./img/icons/icon3.gif[/img]',document.forms['newreply']);"/>
+			<img src="./img/icons/icon11.gif" onclick="Javascript:addText(':xx:',document.forms['newreply']);"/>
+			<img src="./img/icons/icon4.gif" onclick="Javascript:addText(':0:',document.forms['newreply']);"/>
+			<img src="./img/icons/icon3.gif"  onclick="Javascript:addText('8|',document.forms['newreply']);"/>
 			<img src="./img/smilies/ugly.gif" onclick="Javascript:addText(':ugly:',document.forms['newreply']);"/>
 			<img src="./img/smilies/tourette.gif" onclick="Javascript:addText(':tourette:',document.forms['newreply']);"/>
 			<br />
