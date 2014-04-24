@@ -41,9 +41,7 @@ var optionen = {
 			"http://www.abload.de/img/icon8lvf.gif"],
 		qr_custombuttons : [{
 			"url":"ZOMG",
-			"code":"[img]http://h8.abload.de/img/omgonozlhg6.gif[/img]",
-			"url":"VIDEO",
-			"code":"[video][/video]"
+			"code":"[img]http://h8.abload.de/img/omgonozlhg6.gif[/img]"
 		}],
 		qr_savepost: false
 	},
@@ -212,6 +210,8 @@ qr_row1 = ((_=>/*
 				<img src="./img/buttons/kursiv.gif" alt="Kursiv" onclick="addCode('[i]', '[/i]', document.forms['newreply'])" />
 				<img src="./img/buttons/s.gif" alt="Durchstreichen" onclick="addCode('[s]', '[/s]', document.forms['newreply'])" />
 				<img src="http://abload.de/img/mono4qf9.png" alt="Monospace" onclick="addCode('[m]', '[/m]', document.forms['newreply'])" />
+				<img src="http://abload.de/img/acode3y4xob.gif" alt="Audio" onclick="addCode('[audio]', '[/audio]', document.forms['newreply'])" />
+				<img src="http://abload.de/img/vcode3l2y6e.gif" alt="Video" onclick="addCode('[video]', '[/video]', document.forms['newreply'])" />
 				<img src="./img/buttons/img.gif" alt="Bild einf&#x00fc;gen" onclick="makeImage(document.forms['newreply'])" />
 				<img src="./img/buttons/url.gif" alt="Link mit Text" onclick="makeNamedLink(document.forms['newreply'])" />
 				<img src="./img/buttons/url2.gif" alt="Link einf&#x00fc;gen" onclick="makeLink(document.forms['newreply'])" />
@@ -463,8 +463,10 @@ var QR = (function($){
 				qr_edit.find('input[name="token"]').val(token);
 				qr_edit.find('textarea[name="message"]').val(code);
 				qr_edit.find('form').attr('action', "editreply.php").append($('<input type="hidden" name="PID"/>').val(pid));
-				qr_edit.find('input[name="post_icon"]').attr('name','edit_icon');
-				qr_edit.find('input[name="post_title"]').attr('name','edit_title').val(title);
+				qr_edit.find('input').attr('name', function( index, oldName){
+					return oldName.replace(/^post/,'edit');
+				});
+				qr_edit.find('input[name="edit_title"]').val(title);
 
 				if( icon.length){
 					$(document.querySelectorAll('#qr_row1 > td:last-child img[src*="'+ icon.attr('src').replace(/(\/|\.)/g,"\\$1") +'"]')).prev().attr('checked','checked');
