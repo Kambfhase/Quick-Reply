@@ -2,7 +2,7 @@
 // @name        Quick-Reply by Kambfhase
 // @author      Kambfhase
 // @description ein Quick-Reply Script fuer mods.de
-// @version     2.7.4
+// @version     pre2.7.5pre
 // @include     http://forum.mods.de/bb/thread.php?*
 // @include     http://forum.mods.de/bb//thread.php?*
 // @grant       GM_getValue
@@ -433,7 +433,7 @@ var QR = (function($){
 
 			this.ladePost(pid).done(function( data){
 				var text = data.code,
-					img2url = /\[url=([^\]]+)\]\[img\][^\]]*\[\/img\]\[\/url\]/gi;
+					img2url = /\[url="?([^\]]+)"?\]\[img\][^\]]*\[\/img\]\[\/url\]/gi;
 
 				text = text.replace(img2url,"[url]$1[/url]");
 				text = '[quote='+tid+','+
