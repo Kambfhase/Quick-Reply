@@ -57,10 +57,14 @@ var optionen = {
 	token_newreply = unsafeWindow.token_newreply,
 	storage = { 
 		get: function( a, b){
-			var val = GM_getValue( a, b);
-			return typeof val !== typeof b ? JSON.parse( val) : val;
+			var val = a in unsafeWindow.localStorage ? unsafeWindow.localStorage.getItem(a) : GM_getValue( a, b);
+			if( val == undefined ){
+				val = b;
+			}
+			cl( a, b, val);
+			return (typeof val !== typeof b && typeof val == 'string') ? JSON.parse( val) : val;
 		},
-		set: GM_setValue
+		set: (a,b)=>unsafeWindow.localStorage.setItem(a,b)
 	};
 
 
