@@ -2,7 +2,7 @@
 // @name        Quick-Reply by Kambfhase
 // @author      Kambfhase
 // @description ein Quick-Reply Script fuer mods.de
-// @version     pre2.7.5pre
+// @version     2.7.5
 // @include     http://forum.mods.de/bb/thread.php?*
 // @include     http://forum.mods.de/bb//thread.php?*
 // @grant       GM_getValue
