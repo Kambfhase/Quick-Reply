@@ -9,6 +9,7 @@
 // @grant       GM_setValue
 // @grant       GM_addStyle
 // @grant       GM_log
+// @grant       unsafeWindow
 // ==/UserScript==
 
 var window = unsafeWindow;
@@ -53,7 +54,7 @@ var optionen = {
 	tid = /TID=(\d+)/i.exec( window.location.search)[1],
 	jqTBody = (document.evaluate("//tbody[ ./tr[ @username] ]", document, null, 8, null).singleNodeValue),
 	qr_row0, qr_row1, qr_row2,
-	$ = unsafeWindow.jQuery, 
+	$ = unsafeWindow.jQuery,
 	token_newreply = unsafeWindow.token_newreply,
 	storage = { 
 		get: function( a, b){
@@ -328,9 +329,8 @@ $(document).on('keypress',function( e){
 	}
 });
 
-
 // POSTICONS
-$('#qr_row1').find('input[type="radio"] + img').on("click", clickPosticon);
+$('#qr_row1', document).find('input[type="radio"] + img').on("click", clickPosticon);
 
 
 // EINSTELLUNGEN
@@ -343,7 +343,7 @@ $('#qr_row1').find('input[type="radio"] + img').on("click", clickPosticon);
 		storage.set( setting, value);
 	}
 
-	$('#qr_row2').find('input[type="checkbox"]').prop("checked", function(){
+	$('#qr_row2', document).find('input[type="checkbox"]').prop("checked", function(){
 		return storage.get( this.id, optionen[ this.id]);
 	}).on('click', clickEinstellung);
 	
@@ -393,7 +393,7 @@ var Smileys = (function($){
 
 	$('#smileys').on("click", Smileys.clickHandler);
 	
-	$('#qr_smileys').change(Smileys.changeEinstellung);
+	$('#qr_smileys', document).change(Smileys.changeEinstellung);
 
 	$('#qr_customsmileys').change(Smileys.customSmileysSpeichern).val(
 		storage.get('qr_customsmileys',optionen.qr_customsmileys).map(unescape).join('\n')
@@ -485,8 +485,8 @@ var QR = (function($){
 		}
 	};
 
-	$('#qr_row1').find('a:first').click( QR.zeigeOptionen);
-	$('#qr_row0, #qr_row2').find('a:first').click( QR.zeigeEingabe);
+	$('#qr_row1', document).find('a:first').on('click', QR.zeigeOptionen);
+	$('#qr_row0, #qr_row2', document).find('a:first').on('click', QR.zeigeEingabe);
 
 	return QR;
 })($);
@@ -593,5 +593,5 @@ var QR = (function($){
 		$('#message').val( storage.get('qr_save',{})[tid] || '' );
 	}
 
-})();
+});
 
