@@ -2,7 +2,7 @@
 // @name        Quick-Reply by Kambfhase
 // @author      Kambfhase
 // @description ein Quick-Reply Script fuer mods.de
-// @version     2.7.5
+// @version     2.7.6
 // @include     http://forum.mods.de/bb/thread.php?*
 // @include     http://forum.mods.de/bb//thread.php?*
 // @grant       GM_getValue
@@ -288,8 +288,8 @@ $(document.createDocumentFragment()).append( unescape(qr_row0))
 	.append( unescape(qr_row2))
 	.insertAfter($(jqTBody).find("tr.color1").last());
 
-$('#qr_row1').find('input[name="TID"]').val(tid);
-$('#qr_row1').find('input[name*="token"]').val(token_newreply);
+$('#qr_row1', document).find('input[name="TID"]').val(tid);
+$('#qr_row1', document).find('input[name*="token"]').val(token_newreply);
 
 
 // EVENT HANDLER
@@ -390,11 +390,11 @@ var Smileys = (function($){
 		}
 	};
 
-	$('#smileys').on("click", Smileys.clickHandler);
+	$('#smileys', document).on("click", Smileys.clickHandler);
 	
 	$('#qr_smileys', document).change(Smileys.changeEinstellung);
 
-	$('#qr_customsmileys').change(Smileys.customSmileysSpeichern).val(
+	$('#qr_customsmileys', document).change(Smileys.customSmileysSpeichern).val(
 		storage.get('qr_customsmileys',optionen.qr_customsmileys).map(unescape).join('\n')
 	).change();
 
@@ -535,10 +535,10 @@ var QR = (function($){
 		cache.appendTo( span);
 	};
 
-	$('#qr_custombuttons_add').click( clickPlus);
-	$('#qr_custombuttons').on('click','a',clickMinus).bind('change', changeCustombuttons).bind('create',createCustombuttons);
+	$('#qr_custombuttons_add', document).click( clickPlus);
+	$('#qr_custombuttons', document).on('click','a',clickMinus).bind('change', changeCustombuttons).bind('create',createCustombuttons);
 
-	$('#qr_insertcustombuttonshere').on('click','img[code]',clickCustombuttons);
+	$('#qr_insertcustombuttonshere', document).on('click','img[code]',clickCustombuttons);
 
 	for(;i< obj.length; ++i){
 		cache.append('<a href="javascript:void 0;">-</a> <label> URL: <input type="text" name="url" value="'+unescape(obj[i].url)+'" /></label> <label> Code: <input type="text" name="code" value="'+unescape(obj[i].code)+'" /></label><br />\n');
@@ -547,7 +547,7 @@ var QR = (function($){
 	cache.appendTo('#qr_custombuttons');
 
 
-	changeCustombuttons.apply( $('#qr_custombuttons').get(0));
+	changeCustombuttons.apply( $('#qr_custombuttons', document).get(0));
 
 })($);
 
