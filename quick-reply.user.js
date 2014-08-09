@@ -62,7 +62,6 @@ var optionen = {
 			if( val == undefined ){
 				val = b;
 			}
-			cl( a, b, val);
 			return (typeof val !== typeof b && typeof val == 'string') ? JSON.parse( val) : val;
 		},
 		set: (a,b)=>unsafeWindow.localStorage.setItem(a,b)
