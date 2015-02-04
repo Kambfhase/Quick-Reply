@@ -64,12 +64,14 @@ var optionen = {
 			}
 			return (typeof val !== typeof b && typeof val == 'string') ? JSON.parse( val) : val;
 		},
-		set: (a,b)=>unsafeWindow.localStorage.setItem(a,b)
+		set: function(a,b) {
+			unsafeWindow.localStorage.setItem(a,b)
+		}
 	};
 
 
 // CSS
-GM_addStyle( ((_=>/*
+GM_addStyle( ((function (){/*
 
 #qr_row1, #qr_row2 {
 	font-size: 10px;
@@ -108,7 +110,7 @@ GM_addStyle( ((_=>/*
 	max-width: 30px;
 }
 
-*/_)+'').slice(5,-3).trim() +
+*/})+'').slice(16,-3).trim() +
 ( storage.get('qr_offen', optionen.qr_offen) ? "#qr_row0 { display: none } #qr_row1 { display: table-row }" : "")+
 ( storage.get('qr_smileys', optionen.qr_smileys) ? "" : "#smileys{ display:none}") );
 
@@ -117,7 +119,7 @@ if( !document.evaluate("//a[contains(@href, './quickmod')]", document, null,8,nu
 
 // HTML
 
-qr_row0 = ((_=>/*
+qr_row0 = ((function (){/*
 
 <tr id="qr_row0" class="color1">
 	<td> <a href="JavaScript:void(0);" class="nu wht postlink">Quick-Reply</a>
@@ -127,9 +129,9 @@ qr_row0 = ((_=>/*
 	</td>
 </tr>
 
-*/_)+'').slice(5,-3).trim();
+*/})+'').slice(16,-3).trim();
 
-qr_row1 = ((_=>/*
+qr_row1 = ((function (){/*
 
 <tr id="qr_row1">
 	<td> <a class="nu wht postlink" href="javascript:void(0);">Optionen</a>
@@ -243,9 +245,9 @@ qr_row1 = ((_=>/*
 	</td>
 </tr>
 
-*/_)+'').slice(5,-3).trim();
+*/})+'').slice(16,-3).trim();
 
-qr_row2 = ((_=>/*
+qr_row2 = ((function (){/*
 
 <tr id="qr_row2">
 	<td> <a href="JavaScript:void(0);" class="nu wht postlink">Quick-Reply</a>
@@ -279,7 +281,7 @@ qr_row2 = ((_=>/*
 	</td>
 </tr>
 
-*/_)+'').slice(5,-3).trim();
+*/})+'').slice(16,-3).trim();
 
 
 // HTML EINFueGEN & MISC
